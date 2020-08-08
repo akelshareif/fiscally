@@ -6,6 +6,7 @@ from models import db, connect_db
 # Blueprint imports
 from home.home import home
 from users.users import users
+from auth.auth import auth
 
 # App config
 app = Flask(__name__)
@@ -22,3 +23,4 @@ db.create_all()
 # Blueprint registrations
 app.register_blueprint(home)
 app.register_blueprint(users)
+app.register_blueprint(auth)
