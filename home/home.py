@@ -1,10 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
-home = Blueprint('home', __name__)
+home = Blueprint('home', __name__, template_folder='templates')
 
 
 @home.route('/')
-def root():
+def home_page():
     """ Main root route of application """
 
-    return 'This is the home page.'
+    return render_template('home/home.jinja')
