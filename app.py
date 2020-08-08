@@ -1,16 +1,24 @@
-from flask import Flask, request, render_template, redirect
+# App packages
+import os
+from flask import Flask
 from models import db, connect_db
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///db_name'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
+# Blueprint imports
+from home.home import home
+from users.users import users
 
+# App config
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DB_URL', 'postgresql:///fiscally')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = False
+
+# DB connection and table creation
 connect_db(app)
 db.create_all()
 
 
-# View fnxs here
-@app.route('/')
-def generic_view_fxn():
-    return ''
+# Blueprint registrations
+app.register_blueprint(home)
+app.register_blueprint(users)
