@@ -7,4 +7,4 @@ class GenericForm(FlaskForm):
     """ This is a template """
 
     # Add Form fields here
-    testField = StringField('Field Name', validators=[Optional()])
+    name = StringField('Name', validators=[Optional()])

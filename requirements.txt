@@ -22,6 +22,7 @@ pycparser==2.20
 pylint==2.5.3
 pylint-flask==0.6
 pylint-plugin-utils==0.6
+python-dotenv==0.14.0
 six==1.15.0
 SQLAlchemy==1.3.18
 toml==0.10.1

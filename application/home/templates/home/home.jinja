@@ -1,0 +1,16 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Fiscally
+{% endblock title %}
+
+{% block content %}
+    <div>
+        <form action="/" method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.name.label }}
+            {{ form.name }}
+            <button>Submit</button>
+        </form>
+    </div>
+{% endblock content %}

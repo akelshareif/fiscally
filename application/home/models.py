@@ -1,12 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
-
-def connect_db(app):
-    """ Connects app to database """
-    db.app = app
-    db.init_app(app)
+from application import db
 
 
 class GenericModel(db.Model):
@@ -16,5 +8,6 @@ class GenericModel(db.Model):
 
     # Columns Here
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text)
 
     # Optional properties, class and instance methods here
