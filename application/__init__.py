@@ -37,9 +37,6 @@ def create_app(is_testing=False):
         # Import blueprints
         from .home import home
 
-        # Create db tables
-        # db.create_all()
-
         # Register blueprints
         app.register_blueprint(home.home_bp)
 
