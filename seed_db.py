@@ -1,5 +1,5 @@
-from models import db  # Models go here
-from app import app
+from application import db  # Models go here
+from application import app
 
 # Create tables
 db.drop_all()

@@ -30,9 +30,10 @@
 -   Import `flask` and `flask_sqlalchemy` and then instantiate SQLAlchemy with the `db` variable.
 -   Make a flask application factory function named `create_app` and pass in `test_config=None` as an argument.
 -   Inside the factory function, instantiate the flask app and `app.config`
--   Connect the app and the database as usual
--   Within `with app.app_context():` import your blueprints and create the database tables
--   Register the blueprints and return the flask app object
+-   `app.config` ideally should be set with nested loops checking what kind of env var is set.
+-   Connect the app and the database as usual.
+-   Within `with app.app_context():` import your blueprints and create the database tables.
+-   Register the blueprints and return the flask app object.
 
 ## `config.py`
 
@@ -40,7 +41,14 @@
 -   Use python-dotenv to grab environment variables from `.env`
 -   Create 3 classes, a base `Config`, `ProdConfig`, and `DevConfig`. The latter two inherit from the base class.
 -   The base class holds the secret key, static folder and templates folder environmental variables
--   The production and dev configs hold all the flask related env vars.
+-   The production and dev configs hold all the flask related env vars except FLASK_ENV
+
+## Heroku Deployment
+
+-   Ensure that all code is commited to local git repo and requirements.txt is up-to-date along with all the secret/irrelevant files ignored.
+-   Make sure that the production configuration points to the correct DB-URI by grabbing from Heroku's env vars
+-   `Procfile` is a file which tells Heroku which web-server to use and where to find the application's entry point.
+-   `runtime.txt` tells Heroku which version of Python to use.
 
 # Design Notes
 

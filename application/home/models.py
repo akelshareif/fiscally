@@ -4,7 +4,7 @@ from application import db
 class GenericModel(db.Model):
     """ Generic Model Class """
 
-    __tablename__ = 'a_table_name'
+    __tablename__ = 'new_table'
 
     # Columns Here
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
