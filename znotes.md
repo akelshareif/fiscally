@@ -1,5 +1,22 @@
 # Dev Notes
 
+## To-Dos
+
+-   In root templates directory, create base navbar, logged in navbar, and anon navbar templates
+-   Complete home blueprint templates
+-   Make user blueprint
+-   Make auth blueprint which will contain all user registration and authentication views/logic
+-   Make tax blueprint
+-   Make api blueprint
+
+---
+
+## The `g` object
+
+-   `g` is a Flask object which is used to store data and share within a single context.
+-   `g` data does not persist between requests, therefore it is only populated with data and usable within a single request cycle.
+-   The most common way to use the `g` object is to initialize it within a view function decorated with the `before_request` decorator. In this request, you'd initialize the `g` object to a value like an object returned from a database query: `g.user = User.query.get('user_id')`.
+
 ## Blueprints
 
 -   In a `blueprint.py` file, you import the models and forms as usual but preprend a dot `.` to the correct file name
@@ -17,7 +34,15 @@
 -   Within `with app.app_context():` import your blueprints and create the database tables
 -   Register the blueprints and return the flask app object
 
-## Design Notes
+## `config.py`
+
+-   Import `environ, path` from `os` and `load_dotenv` from `dotenv`
+-   Use python-dotenv to grab environment variables from `.env`
+-   Create 3 classes, a base `Config`, `ProdConfig`, and `DevConfig`. The latter two inherit from the base class.
+-   The base class holds the secret key, static folder and templates folder environmental variables
+-   The production and dev configs hold all the flask related env vars.
+
+# Design Notes
 
 -   You will need to add a favicon to the application
 -   You will design a logo for the application
