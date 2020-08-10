@@ -29,7 +29,6 @@ def create_app(is_testing=False):
         from .home import home
 
         # Create db tables
-        db.drop_all()
         db.create_all()
 
         # Register blueprints
