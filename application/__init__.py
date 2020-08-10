@@ -30,8 +30,8 @@ def create_app(is_testing=False):
     db.init_app(app)
 
     migrate.init_app(app, db)
-    manager = Manager(app)
-    manager.add_command('db', MigrateCommand)
+    # manager = Manager(app)
+    # manager.add_command('db', MigrateCommand)
 
     with app.app_context():
         # Import blueprints
