@@ -10,6 +10,8 @@ class Config:
     """ Base configuration """
 
     SECRET_KEY = environ.get('SECRET_KEY')
+    GOOGLE_CLIENT_ID = environ.get('CLIENT_ID')
+    GOOGLE_CLIENT_SECRET = environ.get('CLIENT_SECRET')
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
 

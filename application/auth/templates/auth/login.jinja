@@ -1,0 +1,33 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Fiscally Login
+{% endblock title %}
+
+{% block content %}
+    {% include "anon_nav.jinja" %}
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-primary text-center">Login</h2>
+                    <form action="#" method="POST">
+                        {{form.hidden_tag()}}
+                        {% for field in form if field.widget.input_type != 'hidden' %}
+                            <div class="form-group">
+                                {{field.label}}
+                                {{field(class_="form-control form-control-lg")}}
+                                {% for err in field.errors %}
+                                    <span class="text-danger ml-2">{{err}}</span>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-lg btn-success float-right">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

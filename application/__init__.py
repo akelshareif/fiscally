@@ -1,15 +1,23 @@
 """ Application Factory File """
-# Contains application factory function and tells Python to treat application directory as a package
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
+from flask_login import LoginManager
+from authlib.integrations.flask_client import OAuth
 
-# Initialize a globally accessible SQLAlchemy instance
+
+# Instantiate a globally accessible SQLAlchemy instance
 db = SQLAlchemy()
 
-# Initialize Flask-SqlAlchemy database migration and Flask-Script manager
+# Instantiate Flask-SqlAlchemy database migration
 migrate = Migrate()
+
+# Instantiate flask-login
+login_manager = LoginManager()
+
+# Instantiate OAuth
+oauth = OAuth()
 
 
 def create_app(is_testing=False):
@@ -25,19 +33,22 @@ def create_app(is_testing=False):
     else:
         app.config.from_object('config.DevConfig')
 
-    # Initialize all plugins
+    # Initialize all extensions
     db.app = app
     db.init_app(app)
-
     migrate.init_app(app, db)
-    # manager = Manager(app)
-    # manager.add_command('db', MigrateCommand)
+    login_manager.init_app(app)
+    oauth.init_app(app)
 
     with app.app_context():
         # Import blueprints
         from .home import home
+        from .user import user
+        from .auth import auth
 
         # Register blueprints
         app.register_blueprint(home.home_bp)
+        app.register_blueprint(user.user_bp)
+        app.register_blueprint(auth.auth_bp)
 
         return app
