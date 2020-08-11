@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, redirect, request, flash, session, url_for
 from flask_login import login_required, logout_user, current_user, login_user
-from application import oauth, login_manager
+from application import db, oauth, login_manager
 from .auth_forms import LoginForm, RegisterForm
 from ..user.user_models import User
 
@@ -41,19 +41,32 @@ def login_display():
         if user and User.authenticate(form.email.data, form.password.data):
             login_user(user)
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('..user.user.user_profile'))
+            return redirect(next_page or url_for('user.user_profile'))
 
-        flash('Invalid username and/or password.')
-        return redirect(url_for('auth_bp.login'))
+        flash('Invalid username and/or password.', 'danger')
+        return redirect(url_for('auth.login_display'))
 
     return render_template('auth/login.jinja', form=form)
 
 
-@auth_bp.route('/signup')
+@auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup_display():
     """ Signup page """
 
-    return 'sign up'
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None:
+            user = User.register(form.first_name.data, form.last_name.data,
+                                 form.email.data, form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            return redirect(url_for('user.user_profile'))
+
+        flash('An account already exists with inputted credentials.', 'warning')
+
+    return render_template('auth/register.jinja', form=form)
 
 
 # Google login endpoints

@@ -25,7 +25,7 @@ class User(UserMixin, db.Model):
         return f'{self.first_name} {self.last_name}'
 
     @classmethod
-    def register(cls, first_name, last_name, email, username, password):
+    def register(cls, first_name, last_name, email, password):
         """ Returns a User with a hashed password """
         bcrypt = Bcrypt()
 

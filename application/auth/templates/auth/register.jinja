@@ -7,23 +7,28 @@
 {% block content %}
     {% include "anon_nav.jinja" %}
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-3">
         <div class="col-md-5">
+            {% for cat, msg in get_flashed_messages(with_categories=True) %}
+                <div class="alert alert-{{cat}} text-center">
+                    {{msg}}
+                </div>
+            {% endfor %}
             <div class="card">
                 <div class="card-body">
-                    <h1>Registration</h1>
-                    <form action="#" method="POST">
+                    <h2 class="text-primary text-center">Register</h2>
+                    <form action="{{url_for('auth.signup_display')}}" method="POST">
                         {{form.hidden_tag()}}
                         {% for field in form if field.widget.input_type != 'hidden' %}
                             <div class="form-group">
                                 {{field.label}}
-                                {{field(class_="form-control")}}
+                                {{field(class_="form-control form-control-lg")}}
                                 {% for err in field.errors %}
                                     <span class="text-danger ml-2">{{err}}</span>
                                 {% endfor %}
                             </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-success float-right">Create Account</button>
+                        <button type="submit" class="btn btn-lg btn-success float-right">Create Account</button>
                     </form>
                 </div>
             </div>

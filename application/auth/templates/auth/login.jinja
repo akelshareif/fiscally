@@ -9,10 +9,15 @@
 
     <div class="row justify-content-center mt-3">
         <div class="col-md-5">
+            {% for cat, msg in get_flashed_messages(with_categories=True) %}
+                <div class="alert alert-{{cat}} text-center">
+                    {{msg}}
+                </div>
+            {% endfor %}
             <div class="card">
                 <div class="card-body">
                     <h2 class="text-primary text-center">Login</h2>
-                    <form action="#" method="POST">
+                    <form action="{{url_for('auth.login_display')}}" method="POST">
                         {{form.hidden_tag()}}
                         {% for field in form if field.widget.input_type != 'hidden' %}
                             <div class="form-group">
