@@ -28,8 +28,19 @@
                                 {% endfor %}
                             </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-lg btn-success float-right">Create Account</button>
+                        <button type="submit" class="btn btn-lg btn-block btn-info mt-4">Create Account</button>
                     </form>
+                    <div class="row my-3">
+                        <div class="col"><hr/></div>
+                        <div class="col-auto">OR</div>
+                        <div class="col"><hr/></div>
+                    </div>
+                    <div>
+                        <a href="{{url_for('auth.google_login')}}" class="btn btn-lg btn-block btn-danger">
+                            <i class="fab fa-google mr-1"></i>
+                            Signup With Google
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

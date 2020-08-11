@@ -36,7 +36,7 @@ class User(UserMixin, db.Model):
 
     @classmethod
     def authenticate(cls, email, password):
-        """ Returns a user if user exists and password matches hash, else False """
+        """ Returns True if user exists and password matches hash, else False """
         bcrypt = Bcrypt()
 
         user = User.query.filter_by(email=email).first()

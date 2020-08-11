@@ -22,14 +22,7 @@ google = oauth.register(
 )
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    """Check if user is logged-in on every page load."""
-    if user_id is not None:
-        return User.query.get(user_id)
-    return None
-
-
+# Login and singup routes
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login_display():
     """ Login page """
@@ -40,8 +33,7 @@ def login_display():
         user = User.query.filter_by(email=form.email.data).first()
         if user and User.authenticate(form.email.data, form.password.data):
             login_user(user)
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('user.user_profile'))
+            return redirect(url_for('user.user_profile'))
 
         flash('Invalid username and/or password.', 'danger')
         return redirect(url_for('auth.login_display'))
@@ -69,7 +61,7 @@ def signup_display():
     return render_template('auth/register.jinja', form=form)
 
 
-# Google login endpoints
+# Google login routes
 @auth_bp.route('/google/login')
 def google_login():
     """ Show google login page """
@@ -80,12 +72,46 @@ def google_login():
 
 @auth_bp.route('/google/authorize')
 def google_authorize():
-    """ Authenticate google login and redirect to profile page """
+    """ Handle user creation and login with google account """
 
     token = google.authorize_access_token()
-    user = google.parse_id_token(token)
-    # Add user data to DB
-    session['user'] = user
-    print(user)
+    g_data = google.parse_id_token(token)
 
-    return redirect('/user')
+    # If user doesn't exists, create, login user and reirect to profile, else login user and redirect.
+    user = User.query.filter_by(email=g_data['email']).first()
+    if user is None:
+        user = User.register(
+            g_data['given_name'], g_data['family_name'], g_data['email'], g_data['sub'])
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return redirect(url_for('user.user_profile'))
+
+    login_user(user)
+    return redirect(url_for('user.user_profile'))
+
+
+# Logout route
+@auth_bp.route('/logout')
+@login_required
+def logout():
+    """ Logout logic """
+
+    logout_user()
+    return redirect(url_for('auth.login_display'))
+
+
+# Flask-login authorization handlers
+@login_manager.user_loader
+def load_user(user_id):
+    """Check if user is logged-in on every page load."""
+    if user_id is not None:
+        return User.query.get(user_id)
+    return None
+
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    """ Redirect unauthorized users to the login page """
+    flash('You must be logged in to view that page.', 'warning')
+    return redirect(url_for('auth.login_display'))
