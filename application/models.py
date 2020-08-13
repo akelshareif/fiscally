@@ -59,7 +59,7 @@ class PaycheckModel(db.Model):
     pay_date = db.Column(db.Date, nullable=False, default=date.today())
     gross = db.Column(db.Float(precision=2), nullable=False)
     net = db.Column(db.Float(precision=2), nullable=False)
-    user_email = db.Column(db.Text, db.ForeignKey('users.email'))
+    user_email = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return f'<Paycheck user={self.user} date={self.pay_date} >'
