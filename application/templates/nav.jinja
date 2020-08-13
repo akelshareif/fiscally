@@ -1,0 +1,5 @@
+{% if session['_user_id'] %}
+    {% include "logged_in_nav.jinja" %}
+{% else %}
+    {% include "anon_nav.jinja" %}
+{% endif %}

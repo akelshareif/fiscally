@@ -9,11 +9,11 @@
         {% block title %}{% endblock title %}
     </title>
 </head>
-<body class="container">
-    
-    {% block content %}{% endblock content %}
-    
-
+<body>
+    {% include "nav.jinja" %}
+    <div class="container">
+        {% block content %}{% endblock content %}
+    </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     {% block script_tag %}{% endblock script_tag %}
 </body>

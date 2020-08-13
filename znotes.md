@@ -2,12 +2,10 @@
 
 ## To-Dos
 
--   In root templates directory, create base navbar, logged in navbar, and anon navbar templates
--   Complete home blueprint templates
--   Make user blueprint
--   Make auth blueprint which will contain all user registration and authentication views/logic
--   Make tax blueprint
--   Make api blueprint
+-   Make sure navbar switching and logout works (remember nav hamburger still doesn't work w/o jquery)
+-   Begin fleshing out the user routes
+    -   User profile page
+        -   Should show last paycheck input, salary info, work hours info, savings goals and progress
 
 ---
 

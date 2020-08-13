@@ -1,6 +1,6 @@
 """ User views """
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_required
 # from .user_models import User
 
@@ -13,4 +13,4 @@ user_bp = Blueprint('user', __name__, url_prefix='/user',
 def user_profile():
     """ User profile page """
 
-    return 'User Profile'
+    return render_template('user/profile.jinja')

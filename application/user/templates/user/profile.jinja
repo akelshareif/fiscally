@@ -1,0 +1,109 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Profile
+{% endblock title %}
+
+{% block content %}
+    
+    {# Summary #}
+    <div class="row mt-3">
+        <div class="col-md-5 mb-2">
+            <div class="card">
+                <h4 class="card-header text-primary text-center">Summary</h4>
+                <div class="card-body">
+                    dsfadsf
+                </div>
+            </div>
+        </div>
+
+        {# Stats #}
+        <div class="col-md-7">
+            <div class="card">
+                <h4 class="card-header text-primary text-center">Details</h4>
+                <div class="card-body">
+                    
+                    {# Paycheck Stats #}
+                    <div class="card mb-3">
+                        <h6 class="card-header text-primary">Paycheck History</h6>
+                        <table class="table table-sm table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Select</th>
+                                    <th scope="col">Pay Date</th>
+                                    <th scope="col">Gross Amount</th>
+                                    <th scope="col">Net Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        <input type="checkbox" />
+                                    </th>
+                                    <td>08/12/2020</td>
+                                    <td>$1000.00</td>
+                                    <td>$854.89</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+
+                    {# Bills Stats #}
+                    <div class="card mb-3">
+                        <h6 class="card-header text-primary">Monthly Bills</h6>
+                        <table class="table table-sm table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Select</th>
+                                    <th scope="col">Bill Name</th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">Bill Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        <input type="checkbox" />
+                                    </th>
+                                    <td>Car Note</td>
+                                    <td>08/12/2020</td>
+                                    <td>$352.76</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {# Savings Stats #}
+                    <div class="card mb-3">
+                        <h6 class="card-header text-primary">Savings</h6>
+                        <h6 class="text-center">Savings Goal</h6>
+                        <div class="progress">
+                            <div class="progress-bar progess-bar-striped progress-bar-animated" role="progress bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+                        </div>
+                        <table class="table table-sm table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Select</th>
+                                    <th scope="col">Date Added</th>
+                                    <th scope="col">Savings Amount</th>
+                                    <th scope="col">Total Savings</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        <input type="checkbox" />
+                                    </th>
+                                    <td>08/12/2020</td>
+                                    <td>$550.50</td>
+                                    <td>$1250.50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
