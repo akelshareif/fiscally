@@ -50,7 +50,7 @@ class User(UserMixin, db.Model):
             return False
 
 
-class PaycheckModel(db.Model):
+class Paycheck(db.Model):
     """ Paycheck Model """
 
     __tablename__ = 'paychecks'
