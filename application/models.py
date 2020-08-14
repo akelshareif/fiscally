@@ -56,7 +56,7 @@ class Paycheck(db.Model):
     __tablename__ = 'paychecks'
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    pay_date = db.Column(db.Date, nullable=False, default=date.today())
+    pay_date = db.Column(db.Date, default=date.today())
     gross = db.Column(db.Float(precision=2), nullable=False)
     net = db.Column(db.Float(precision=2), nullable=False)
     user_id = db.Column(UUID, db.ForeignKey('users.id'))

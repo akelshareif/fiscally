@@ -1,0 +1,81 @@
+<div id="addform" class="collapse" aria-labelledby="add-paycheck" data-parent="#pay-views">
+    <div class="card-body">
+        <form action="{{url_for('pay.pay_display')}}" method="POST">
+            {{pc_form.hidden_tag()}}
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        {{pc_form.pay_date.label}}
+                        {{pc_form.pay_date(class_="form-control")}}
+                        {% for error in pc_form.pay_date.errors %}
+                            <span class="text-danger ml-1">{{error}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{pc_form.gross_pay.label}}
+                        {{pc_form.gross_pay(class_="form-control")}}
+                        {% for error in pc_form.gross_pay.errors %}
+                            <span class="text-danger ml-1">{{error}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{pc_form.exemptions.label}}
+                        {{pc_form.exemptions(class_="form-control")}}
+                        {% for error in pc_form.exemptions.errors %}
+                            <span class="text-danger ml-1">{{error}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        {{pc_form.filing_status.label}}
+                        {% for error in pc_form.filing_status.errors %}
+                            <div class="text-danger ml-1">{{error}}</div>
+                        {% endfor %}
+                        {% for radio in pc_form.filing_status %}
+                            <div class="form-check ml-2">
+                                {{radio(class_="form-check-input")}}
+                                {{radio.label(class_="form-check-label")}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    {{pc_form.pay_method.label}}
+                    {% for error in pc_form.pay_method.errors %}
+                        <div class="text-danger ml-1">{{error}}</div>
+                    {% endfor %}
+                    {% for radio in pc_form.pay_method %}
+                        <div class="form-check ml-2">
+                            {{radio(class_="form-check-input")}}
+                            {{radio.label(class_="form-check-label")}}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{pc_form.state.label}}
+                        {% for error in pc_form.state.errors %}
+                            <div class="text-danger ml-1">{{error}}</div>
+                        {% endfor %}
+                        <select class="form-control" name="state">
+                        {% for option in pc_form.state %}
+                            {{option}}
+                        {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mb-2 float-right">
+                <i class="fas fa-plus"></i>
+                &nbsp; Add Paycheck
+            </button>
+        </form>
+    </div>
+</div>
