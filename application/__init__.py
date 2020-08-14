@@ -45,10 +45,12 @@ def create_app(is_testing=False):
         from .home import home
         from .user import user
         from .auth import auth
+        from .pay import pay
 
         # Register blueprints
         app.register_blueprint(home.home_bp)
         app.register_blueprint(user.user_bp)
         app.register_blueprint(auth.auth_bp)
+        app.register_blueprint(pay.pay_bp)
 
         return app

@@ -17,10 +17,10 @@ class User(UserMixin, db.Model):
     email = db.Column(db.Text, nullable=False)
     password = db.Column(db.Text, nullable=False)
     paychecks = db.relationship(
-        'PaycheckModel', backref='user', cascade='all, delete, delete-orphan')
+        'Paycheck', backref='user', cascade='all, delete, delete-orphan')
 
     def __repr__(self):
-        return f'<User username={self.username} name={self.full_name} email={self.email}>'
+        return f'<User name={self.full_name} email={self.email}>'
 
     @property
     def full_name(self):
@@ -59,7 +59,7 @@ class Paycheck(db.Model):
     pay_date = db.Column(db.Date, nullable=False, default=date.today())
     gross = db.Column(db.Float(precision=2), nullable=False)
     net = db.Column(db.Float(precision=2), nullable=False)
-    user_email = db.Column(UUID, db.ForeignKey('users.id'))
+    user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return f'<Paycheck user={self.user} date={self.pay_date} >'
