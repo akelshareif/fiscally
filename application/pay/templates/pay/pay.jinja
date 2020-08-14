@@ -5,12 +5,13 @@
 {% endblock title %}
 
 {% block content %}
+    <h3 class="text-primary">Options</h3>
     <div class="accordion mb-3" id="pay-views">
         <div class="card">
             <div class="card-header" id="add-paycheck">
                 <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#addform" aria-expanded="false" aria-controls="addform">
-                        Add Paycheck
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#addform" aria-expanded="true" aria-controls="addform">
+                        Add A Paycheck
                     </button>
                 </h2>
             </div>
@@ -53,3 +54,7 @@
         </table>
     </div>
 {% endblock content %}
+
+{% block script_tag %}
+    <script src="{{url_for('static', filename='pay.js')}}"></script>
+{% endblock script_tag %}

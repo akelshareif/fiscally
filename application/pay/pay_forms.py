@@ -1,7 +1,7 @@
 """ All pay related forms """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField, IntegerField, RadioField, SelectField
+from wtforms import StringField, DecimalField, IntegerField, RadioField, SelectField, FieldList
 from wtforms.fields.html5 import DateField
 from wtforms.validators import InputRequired, Optional
 from .state_dict import states
