@@ -1,75 +1,10 @@
 """ All pay related forms """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField, IntegerField, RadioField, SelectField, FieldList
+from wtforms import DecimalField, IntegerField, RadioField, SelectField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import InputRequired, Optional
 from .state_dict import states
-
-
-class WhichPayForm(FlaskForm):
-    """ Used to determine appropriate pay form """
-
-    pay_frequency = RadioField('Pay Frequency', choices=[('w', 'Weekly'), ('bw', 'Bi-Weekly'), (
-        'bm', 'Bi-Monthly'), ('m', 'Monthly')], validators=[InputRequired(message="You must select a pay-frequency.")])
-
-
-class WeeklyGrossForm(FlaskForm):
-    """ Weekly pay data """
-
-    pay_rate = DecimalField('Pay Rate', places=2, validators=[
-                            InputRequired(message="You must enter a pay-rate.")])
-
-    weekly_hours = DecimalField('Week Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked per-week.")])
-
-
-class BiWeeklyGrossForm(FlaskForm):
-    """ Bi-Weekly pay data """
-
-    pay_rate = DecimalField('Pay Rate', places=2, validators=[
-                            InputRequired(message="You must enter a pay-rate.")])
-
-    week_1_hours = DecimalField('Week One Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week one.")])
-
-    week_2_hours = DecimalField('Week Two Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week two.")])
-
-
-class BiMonthlyGrossForm(FlaskForm):
-    """ Bi-monthly pay data """
-
-    pay_rate = DecimalField('Pay Rate', places=2, validators=[
-                            InputRequired(message="You must enter a pay-rate.")])
-
-    week_1_hours = DecimalField('Week One Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week one.")])
-
-    week_2_hours = DecimalField('Week Two Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week two.")])
-
-    week_3_hours = DecimalField('Week Three Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week three.")])
-
-
-class MonthlyGrossForm(FlaskForm):
-    """ Bi-monthly pay data """
-
-    pay_rate = DecimalField('Pay Rate', places=2, validators=[
-                            InputRequired(message="You must enter a pay-rate.")])
-
-    week_1_hours = DecimalField('Week One Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week one.")])
-
-    week_2_hours = DecimalField('Week Two Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week two.")])
-
-    week_3_hours = DecimalField('Week Three Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week three.")])
-
-    week_4_hours = DecimalField('Week Four Hours', places=2, validators=[
-                                InputRequired(message="You must enter the hours you've worked in week Four.")])
 
 
 class PaycheckForm(FlaskForm):

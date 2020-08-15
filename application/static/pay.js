@@ -25,6 +25,7 @@ add_hours_btn.addEventListener('click', (e) => {
         input.setAttribute('type', 'number');
         input.setAttribute('step', '0.01');
         input.setAttribute('min', '0.00');
+        input.setAttribute('placeholder', 'Enter Hours');
 
         label.innerText = `Week ${++week_num} Hours`;
         info.innerText =

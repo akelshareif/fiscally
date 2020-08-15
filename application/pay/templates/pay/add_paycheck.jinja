@@ -15,7 +15,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         {{pc_form.gross_pay.label}}
-                        {{pc_form.gross_pay(class_="form-control")}}
+                        {{pc_form.gross_pay(class_="form-control", placeholder="Enter Gross Pay")}}
                         {% for error in pc_form.gross_pay.errors %}
                             <span class="text-danger ml-1">{{error}}</span>
                         {% endfor %}
@@ -24,7 +24,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         {{pc_form.exemptions.label}}
-                        {{pc_form.exemptions(class_="form-control")}}
+                        {{pc_form.exemptions(class_="form-control", placeholder="Enter Total Exemptions")}}
                         {% for error in pc_form.exemptions.errors %}
                             <span class="text-danger ml-1">{{error}}</span>
                         {% endfor %}
