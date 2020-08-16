@@ -1,65 +1,113 @@
-const weeks_div = document.querySelector('#append-to');
-const add_hours_btn = document.querySelector('#add-hours');
-const gross_form = document.querySelector('#gross_form');
-const results_div = document.querySelector('#results');
-let week_num = 1;
+/* ######## Hourly Calculator Logic ########## */
+const weeksDiv = document.querySelector('#append-to');
+const addHoursBtn = document.querySelector('#add-hours');
+const hourlyForm = document.querySelector('#gross_form');
+const resultsDiv = document.querySelector('#results');
+let weekNum = 1;
 
-add_hours_btn.addEventListener('click', (e) => {
+addHoursBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    if (week_num < 4) {
-        const row = document.createElement('div');
+    if (weekNum < 4) {
+        // Create all elements for Week form field
+        const formGroupRow = document.createElement('div');
         const col = document.createElement('div');
         const label = document.createElement('label');
-        const input = document.createElement('input');
+        const hoursInput = document.createElement('input');
         const info = document.createElement('small');
 
-        row.classList.add('form-group', 'row');
+        // Add classes to each element
+        formGroupRow.classList.add('form-group', 'row');
         col.classList.add('col-sm-9');
         label.classList.add('col-sm-2', 'col-form-label');
-        input.classList.add('form-control');
+        hoursInput.classList.add('form-control');
         info.classList.add('text-muted', 'ml-2');
 
+        // Add required attributes
         label.setAttribute('for', 'week');
-        input.setAttribute('name', 'week');
-        input.setAttribute('type', 'number');
-        input.setAttribute('step', '0.01');
-        input.setAttribute('min', '0.00');
-        input.setAttribute('placeholder', 'Enter Hours');
+        hoursInput.setAttribute('name', 'week');
+        hoursInput.setAttribute('type', 'number');
+        hoursInput.setAttribute('step', '0.01');
+        hoursInput.setAttribute('min', '0.00');
+        hoursInput.setAttribute('placeholder', 'Enter Hours');
 
-        label.innerText = `Week ${++week_num} Hours`;
+        // Set relevant text for label and small tags
+        label.innerText = `Hours: Week ${++weekNum}`;
         info.innerText =
-            'Overtime is added at a rate of 1.5x of base pay for weeks over 40 hours.';
+            'Overtime is at 1.5x of base pay for weeks over 40 hours.';
 
-        col.append(input);
+        // Build the form field
+        formGroupRow.append(label);
+        formGroupRow.append(col);
+        col.append(hoursInput);
         col.append(info);
-        row.append(label);
-        row.append(col);
 
-        weeks_div.append(row);
+        // Append form field to form
+        weeksDiv.append(formGroupRow);
     } else {
-        results_div.innerText = 'Only a maximum of 4 weeks is allowed.';
+        // Show if there are already 4 weeks added to gross pay calculator
+        resultsDiv.innerText = 'Only a maximum of 4 weeks is allowed.';
     }
 });
 
-gross_form.addEventListener('submit', async (e) => {
+hourlyForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    week_num = 1;
-    const first_input = document.querySelector('input[name="week-1"]');
+    const firstWeek = document.querySelector('input[name="week-1"]');
     const inputs = document.querySelectorAll('input[name="week"]');
-    const pay_rate_input = document.querySelector('#pay-rate');
+    const payRateInput = document.querySelector('#pay-rate');
+
+    // Reinitialize number of weeks and hours array
+    weekNum = 1;
     let hours = [];
-    pay_rate = pay_rate_input.value;
-    hours.push(first_input.value);
-    first_input.value = '';
-    pay_rate_input.value = '';
+
+    // Save payrate and push first week's hours to hours array
+    const payRate = payRateInput.value;
+    hours.push(firstWeek.value);
+
+    // Push all additional week hours to hours array
     for (const input of inputs) {
         hours.push(input.value);
-        input.parentElement.parentElement.remove();
     }
+
+    // Remove all dynamically added inputs from page
+    firstWeek.value = '';
+    payRateInput.value = '';
+    weeksDiv.innerHTML = '';
+
+    // Make an AJAX call to backend to calculate api and save response
     const { data } = await axios.post('/user/pay/gross/calculate', {
-        pay_rate,
+        payRate,
         hours,
     });
-    results_div.innerText = `Your total gross pay is: $${data['gross']}`;
+
+    // Display gross pay results on page
+    resultsDiv.innerText = `Your total gross pay is: $${data['gross']}`;
+});
+
+/* ####### Salary Calculator Logic ########### */
+const salaryForm = document.querySelector('#salary_form');
+const salaryResults = document.querySelector('#salary_results');
+const salaryInput = document.querySelector('#salary');
+const payFrequencyOptions = document.querySelectorAll(
+    'input[name="pay_frequency"]'
+);
+
+salaryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const salary = salaryInput.value;
+    let payFrequencyWeeks = 0;
+    let payFrequencyText = '';
+    for (const option of payFrequencyOptions) {
+        if (option.checked) {
+            payFrequencyWeeks = Number(option.value);
+            payFrequencyText = option.nextElementSibling.innerText;
+        }
+    }
+    if (payFrequencyWeeks === 0) {
+        salaryResults.innerText = 'You must select a pay frequency.';
+    } else {
+        const grossPayResult = (salary / payFrequencyWeeks).toFixed(2);
+        salaryResults.innerText = `Your total ${payFrequencyText} gross pay is: $${grossPayResult}`;
+    }
 });

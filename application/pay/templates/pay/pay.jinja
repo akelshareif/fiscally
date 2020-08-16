@@ -18,14 +18,24 @@
             {% include "pay/add_paycheck.jinja" %}
         </div>
         <div class="card">
-            <div class="card-header" id="calculate-gross">
+            <div class="card-header" id="calculate-hourly">
                 <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#grossform" aria-expanded="false" aria-controls="grossform">
-                        Calculate Gross Pay
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#hourlyform" aria-expanded="false" aria-controls="hourlyform">
+                        Calculate Gross Pay: Hourly Rate
                     </button>
                 </h2>
             </div>
-            {% include "pay/calculate_gross.jinja" %}
+            {% include "pay/calculate_gross_hourly.jinja" %}
+        </div>
+        <div class="card">
+            <div class="card-header" id="calculate-salary">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#salaryform" aria-expanded="false" aria-controls="salarylyform">
+                        Calculate Gross Pay: Annual Salary
+                    </button>
+                </h2>
+            </div>
+            {% include "pay/calculate_gross_salary.jinja" %}
         </div>
     </div>
 

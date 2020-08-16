@@ -4,8 +4,9 @@ from decimal import Decimal
 def calculate_gross_pay(pay_data):
     """ Calculates the total gross pay including overtime pay """
 
-    rate = Decimal(pay_data['pay_rate'])
-    hours_list = pay_data['hours']
+    rate = Decimal(pay_data['payRate']
+                   ) if pay_data['payRate'] != '' else Decimal(0.00)
+    hours_list = [hours for hours in pay_data['hours'] if hours != '']
 
     overtime_hours_list = [
         Decimal(hours)-40 for hours in hours_list if Decimal(hours)-40 >= 0]

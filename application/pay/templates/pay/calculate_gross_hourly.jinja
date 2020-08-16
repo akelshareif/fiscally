@@ -1,0 +1,38 @@
+<div id="hourlyform" class="collapse" aria-labelledby="calculate-hourly" data-parent="#pay-views">
+    <div class="card-body">
+        <div class="text-center my-3">
+            <h5 class="text-success" id="results"></h5>
+        </div>
+        <form id="gross_form">
+            <div class="form-group row">
+                <label for="pay-rate" class="col-sm-2 col-form-label">Pay Rate</label>
+                <div class="col-sm-9">
+                    <input type="number" step="0.01" min="0.00" class="form-control" id="pay-rate" placeholder="Enter Pay Rate">
+                    <small class="text-muted ml-2">Enter your base hourly rate.</small>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="week-1" class="col-sm-2 col-form-label">Hours: Week 1</label>
+                <div class="col-sm-9">
+                    <input type="number" step="0.01" min="0.00" class="form-control" name="week-1" placeholder="Enter Hours">
+                    <small class="text-muted ml-2">Overtime is at 1.5x of pay-rate for weeks over 40 hours.</small>
+                </div>
+            </div>
+            <div id="append-to"></div>
+            <div class="row">
+                <div class="col-sm-2 ">
+                    <button type="button" class="btn btn-sm btn-info" id="add-hours">
+                        <i class="fas fa-plus"></i>
+                        &nbsp; Add Pay Week
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success my-3 float-right">
+                <i class="fas fa-calculator"></i>
+                &nbsp; Calculate
+            </button>
+        <small class="text-muted text-center ml-1">Please add the number of weeks which are within a single pay-period.</small>
+        </form>
+    </div>
+</div>

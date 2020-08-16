@@ -26,3 +26,12 @@ class PaycheckForm(FlaskForm):
         message="You must select the state which you've worked in.")])
 
     exemptions = IntegerField('Number of Exemptions', validators=[Optional()])
+
+
+class SalaryGrossPayForm(FlaskForm):
+    """ Form to calculate gross salary """
+
+    salary = DecimalField('Annual Salary', places=2, validators=[
+                          InputRequired(message="You must enter your annual salary.")])
+    pay_frequency = RadioField('Pay Frequency', choices=[(52, 'Weekly'), (26, 'Bi-Weekly'), (24, 'Semi-Monthly'), (
+        12, 'Monthly')], validators=[InputRequired(message="You must select a pay frequency.")])
