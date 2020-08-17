@@ -62,4 +62,45 @@ class Paycheck(db.Model):
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):
-        return f'<Paycheck user={self.user} date={self.pay_date} >'
+        return f'<Paycheck date={self.pay_date} gross={self.gross}>'
+
+
+class Bill(db.Model):
+    """ Bill Model """
+
+    __tablename__ = 'bills'
+
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    name = db.Column(db.String(20), nullable=False)
+    due_date = db.Column(db.Date, default=date.today())
+    amount = db.Column(db.Float(precision=2), nullable=False)
+    user_id = db.Column(UUID, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return f'<Bill name={self.name} amount={self.amount} user={self.user_id}>'
+
+
+class SavingsEntry(db.Model):
+    """ Model for Savings Entries """
+
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    savings_date = db.Column(db.Date, default=date.today(), nullable=False)
+    transaction_type = db.Column(db.String(10), nullable=False)
+    amount = db.Column(db.Float(precision=2), nullable=False)
+    user_id = db.Column(UUID, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return f'<SavingsEntry transaction={self.transaction_type} amount={self.amount} user={self.user_id}>'
+
+
+class SavingsGoal(db.Model):
+    """ Savings Goal Model """
+
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    start_date = db.Column(db.Date, default=date.today(), nullable=False)
+    end_date = db.Column(db.Date, default=date.today(), nullable=False)
+    amount = db.Column(db.Float(precision=2), nullable=False)
+    user_id = db.Column(UUID, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return f'<SavingsGoal amount={self.amount} user={self.user_id}>'
