@@ -1,0 +1,73 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Savings
+{% endblock title %}
+
+{% block content %}
+
+    <div class="row">
+    
+        <div class="col-md-4 mb-2">
+            <h3 class="text-center">Savings Options</h3>
+            <div class="accordion" id="savings-options">
+                <div class="card">
+                    <div class="card-header" id="transaction">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#transactionform" aria-expanded="true" aria-controls="transactionform">
+                                Add/Withdraw Savings
+                            </button>
+                        </h2>
+                    </div>
+                    {% include "savings/transaction_form.jinja" %}
+                </div>
+                <div class="card">
+                    <div class="card-header" id="savings-target">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#savingstarget" aria-expanded="true" aria-controls="savingstarget">
+                                Add Savings Goal
+                            </button>
+                        </h2>
+                    </div>
+                    {% include "savings/savings_target_form.jinja" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col">
+                    <h2>Savings Total Here</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                    <h4 class="card-header">Savings Activity</h4>
+                    <table class="table table-sm table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Select</th>
+                                <th scope="col">Date Added</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <input type="checkbox" />
+                                </th>
+                                <td>08/12/2020</td>
+                                <td>$123.20</td>
+                                <td>$254.89</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+{% endblock content %}

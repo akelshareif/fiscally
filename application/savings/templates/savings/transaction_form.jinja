@@ -1,0 +1,36 @@
+<div id="transactionform" class="collapse show" aria-labelledby="transaction" data-parent="#savings-options">
+    <div class="card-body">
+        <form action="{{url_for('savings.savings_display')}}" method="POST">
+            {{savings_form.csrf_token(id="csrf_token_1")}}
+            <div class="form-group">
+                {{savings_form.savings_date.label}}
+                {{savings_form.savings_date(class_="form-control")}}
+                {% for error in savings_form.savings_date.errors %}
+                    <div class="text-danger ml-1">{{error}}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{savings_form.transaction.label(class_="d-block")}}
+                <div class="ml-1">
+                    {% for radio in savings_form.transaction %}
+                        <div class="form-check form-check-inline">
+                            {{radio(class_="form-check-input")}}
+                            {{radio.label(class_="form-check-label")}}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% for error in savings_form.transaction.errors %}
+                    <div class="text-danger ml-1">{{error}}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{savings_form.amount.label}}
+                {{savings_form.amount(class_="form-control", placeholder="Enter Savings Amount")}}
+                {% for error in savings_form.amount.errors %}
+                    <div class="text-danger ml-1">{{error}}</div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-success mb-3 float-right">Submit</button>
+        </form>
+    </div>
+</div>

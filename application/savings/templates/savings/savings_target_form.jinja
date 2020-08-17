@@ -1,0 +1,29 @@
+<div id="savingstarget" class="collapse" aria-labelledby="savings-goal" data-parent="#savings-options">
+    <div class="card-body">
+        <form action="{{url_for('savings.savings_goal')}}" method="POST">
+            {{goal_form.csrf_token(id="csrf_token_2")}}
+            <div class="form-group">
+                {{goal_form.goal_start.label}}
+                {{goal_form.goal_start(class_="form-control")}}
+                {% for error in goal_form.goal_start.errors %}
+                    <div class="text-danger ml-1">{{error}}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{goal_form.goal_end.label}}
+                {{goal_form.goal_end(class_="form-control")}}
+                {% for error in goal_form.goal_end.errors %}
+                    <div class="text-danger ml-1">{{error}}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{goal_form.goal_amount.label}}
+                {{goal_form.goal_amount(class_="form-control", placeholder="Enter Goal Amount")}}
+            </div>
+            <button class="btn btn-success mb-3 float-right">
+                <i class="fas fa-plus"></i>
+                &nbsp; Add Goal
+            </button>
+        </form>
+    </div>
+</div>

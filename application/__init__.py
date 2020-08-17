@@ -46,11 +46,15 @@ def create_app(is_testing=False):
         from .user import user
         from .auth import auth
         from .pay import pay
+        from .bills import bills
+        from .savings import savings
 
         # Register blueprints
         app.register_blueprint(home.home_bp)
         app.register_blueprint(user.user_bp)
         app.register_blueprint(auth.auth_bp)
         app.register_blueprint(pay.pay_bp)
+        app.register_blueprint(bills.bills_bp)
+        app.register_blueprint(savings.savings_bp)
 
         return app
