@@ -86,7 +86,7 @@ class Bill(db.Model):
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):
-        return f'<Bill name={self.name} amount={self.amount} user={self.user_id}>'
+        return f'<Bill name={self.bill_name} amount={self.bill_amount} user={self.user_id}>'
 
 
 class SavingsEntry(db.Model):

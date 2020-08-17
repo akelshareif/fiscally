@@ -28,6 +28,25 @@ def bills_display():
     return render_template('bills/bills.jinja', bill_form=bill_form, bills=user_bills)
 
 
+@bills_bp.route('/bills/edit/<bill_id>', methods=['GET', 'POST'])
+@login_required
+def edit_bill(bill_id):
+    """ Handle bill edit """
+
+    bill = Bill.query.get(bill_id)
+
+    bill_form = BillForm(obj=bill)
+
+    if bill_form.validate_on_submit():
+        bill.bill_name = bill_form.bill_name.data
+        bill.bill_due_date = bill_form.bill_due_date.data
+        bill.bill_amount = bill_form.bill_amount.data
+        db.session.commit()
+        return redirect(url_for('bills.bills_display'))
+
+    return render_template('bills/edit_bill.jinja', form=bill_form, bill=bill)
+
+
 @bills_bp.route('/bills/delete', methods=['POST'])
 @login_required
 def delete_bills():

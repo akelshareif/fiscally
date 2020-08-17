@@ -11,7 +11,7 @@
             <div class="card">
                 <h4 class="card-header">Add A Bill</h4>
                 <div class="card-body">
-                    <form action="{{url_for('bills.bills_display')}}" method="POST">
+                    <form action="{{url_for('bills.bills_display')}}" method="POST" id="add_bill">
                         {{bill_form.hidden_tag()}}
                         <div class="form-group">
                             {{bill_form.bill_name.label}}
