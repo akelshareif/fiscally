@@ -19,6 +19,15 @@ class User(UserMixin, db.Model):
     paychecks = db.relationship(
         'Paycheck', backref='user', cascade='all, delete, delete-orphan')
 
+    bills = db.relationship('Bill', backref='user',
+                            cascade='all, delete, delete-orphan')
+
+    savings_entries = db.relationship(
+        'SavingsEntry', backref='user', cascade='all, delete, delete-orphan')
+
+    savings_goals = db.relationship(
+        'SavingsGoal', backref='user', cascade='all, delete, delete-orphan')
+
     def __repr__(self):
         return f'<User name={self.full_name} email={self.email}>'
 
