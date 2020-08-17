@@ -7,7 +7,7 @@
 {% block content %}
     <h3 class="text-center text-primary">Edit {{bill.bill_name}} Bill</h3>
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
                     <form action="{{url_for('bills.edit_bill', bill_id=bill.id)}}" method="POST">
@@ -18,10 +18,13 @@
                                 {{field(class_="form-control")}}
                             </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-info edit-btn mb-3 float-right">
+                        <button type="submit" class="btn btn-block btn-info">
                             <i class="far fa-edit"></i>
                             &nbsp; Edit
                         </button>
+                        <a href="{{url_for('bills.bills_display')}}" class="btn btn-block btn-secondary">
+                            Cancel
+                        </a>
                     </form>
                 </div>
             </div>

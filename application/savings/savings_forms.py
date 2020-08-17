@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DecimalField, RadioField
 from wtforms.fields.html5 import DateField
-from wtforms.validators import InputRequired
+from wtforms.validators import InputRequired, Optional
 
 
 class SavingsForm(FlaskForm):
@@ -21,10 +21,12 @@ class SavingsGoalForm(FlaskForm):
     """ Form to add a savings goal """
 
     goal_start = DateField('Start Date', validators=[
-        InputRequired(message="You must select a date.")])
+        InputRequired(message="You must select a start date.")])
 
     goal_end = DateField('End Date', validators=[
-        InputRequired(message="You must select a date.")])
+        InputRequired(message="You must select an end date.")])
 
     goal_amount = DecimalField('Savings Goal', validators=[
                                InputRequired(message="You must add a savings goal.")])
+
+    current_savings = DecimalField('Current Savings', validators=[Optional()])

@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
+from application import db
 from .savings_forms import SavingsForm, SavingsGoalForm
+from ..models import SavingsEntry, SavingsGoal
 
 
 savings_bp = Blueprint('savings', __name__,
