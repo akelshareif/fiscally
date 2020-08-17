@@ -80,9 +80,9 @@ class Bill(db.Model):
     __tablename__ = 'bills'
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    name = db.Column(db.String(20), nullable=False)
-    due_date = db.Column(db.Date, default=date.today())
-    amount = db.Column(db.Float(precision=2), nullable=False)
+    bill_name = db.Column(db.String(20), nullable=False)
+    bill_due_date = db.Column(db.Date, default=date.today())
+    bill_amount = db.Column(db.Float(precision=2), nullable=False)
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):

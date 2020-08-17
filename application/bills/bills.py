@@ -18,8 +18,8 @@ def bills_display():
     user_bills = Bill.query.filter_by(user_id=str(current_user.id)).all()
 
     if bill_form.validate_on_submit():
-        new_bill = Bill(name=bill_form.bill_name.data,
-                        due_date=bill_form.bill_due_date.data, amount=bill_form.bill_amount.data, user_id=str(current_user.id))
+        new_bill = Bill(bill_name=bill_form.bill_name.data,
+                        bill_due_date=bill_form.bill_due_date.data, bill_amount=bill_form.bill_amount.data, user_id=str(current_user.id))
 
         db.session.add(new_bill)
         db.session.commit()
@@ -36,10 +36,8 @@ def delete_bills():
     bill_ids = request.json['idArr']
 
     for id in bill_ids:
-        bill = Bill.query.get_or_404(id)
+        bill = Bill.query.get(id)
         db.session.delete(bill)
         db.session.commit()
 
-    num_bills = Bill.query.filter_by(user_id=str(current_user.id)).count()
-
-    return {"msg": "success", "num_bills": num_bills}
+    return {"msg": "success"}

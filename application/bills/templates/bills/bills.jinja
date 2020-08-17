@@ -45,19 +45,32 @@
 
         <div class="col-md-8">
             <div class="card">
-                <h4 class="card-header">
+                <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <p class="mb-1">Bills</p>
+                            <h4 class="mb-1">Bills</h4>
                         </div>
-                        <div class="col text-right d-none delete-div">
-                            <button class="btn btn-sm btn-danger delete-btn">
-                                <i class="far fa-trash-alt"></i>
-                                &nbsp; Delete
-                            </button>
+                        <div class="col text-right d-none edit-delete-div">
+                            <div class="row justify-content-end">
+                                <div class="col-md-5 py-0 pr-sm-3 pl-0 mb-1">
+                                    <button class="btn btn-sm btn-info edit-btn" style="width: 80px;">
+                                        <i class="far fa-edit"></i>
+                                        &nbsp; Edit
+                                    </button>
+                                </div>
+                                <div class="col-md-5 py-0 pr-3 pl-0">
+                                    <button class="btn btn-sm btn-danger delete-btn" style="width: 80px;">
+                                        <i class="far fa-trash-alt"></i>
+                                        &nbsp; Delete
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </h4>
+                </div>
+                <div class="bg-danger text-center errors p-0 m-0 d-none" style="color: white;">
+                    You can only edit one bill at a time
+                </div>
                 {% if bills %}
                     <table class="table table-sm table-striped text-center mb-0">
                         <thead>
@@ -74,9 +87,9 @@
                                     <th scope="row">
                                         <input type="checkbox" />
                                     </th>
-                                    <td>{{bill.due_date}}</td>
-                                    <td>{{bill.name}}</td>
-                                    <td>${{bill.amount}}</td>
+                                    <td>{{bill.bill_due_date.strftime('%m/%d/%Y')}}</td>
+                                    <td>{{bill.bill_name}}</td>
+                                    <td>${{bill.bill_amount}}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

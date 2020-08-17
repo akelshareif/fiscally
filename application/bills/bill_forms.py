@@ -10,7 +10,7 @@ class BillForm(FlaskForm):
     bill_name = StringField('Bill Name', validators=[
                             InputRequired(message="You must add a bill name.")])
 
-    bill_due_date = DateField('Pay Date', format='%Y-%m-%d',
+    bill_due_date = DateField('Bill Date', format='%Y-%m-%d',
                               validators=[InputRequired(message="You must select a bill due date.")])
 
     bill_amount = DecimalField('Bill Amount', validators=[
