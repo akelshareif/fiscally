@@ -20,6 +20,11 @@
                 {{goal_form.goal_amount.label}}
                 {{goal_form.goal_amount(class_="form-control", placeholder="Enter Goal Amount")}}
             </div>
+            <div class="form-group">
+                {{goal_form.current_savings.label}}
+                {{goal_form.current_savings(class_="form-control", placeholder="Enter Current Savings (Optional)")}}
+                <small class="text-muted ml-1">This is optional</small>
+            </div>
             <button class="btn btn-block btn-success">
                 <i class="fas fa-plus"></i>
                 &nbsp; Add Goal

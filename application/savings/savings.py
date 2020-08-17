@@ -16,11 +16,13 @@ def savings_display():
 
     savings_form = SavingsForm()
     goal_form = SavingsGoalForm()
+    user_savings = SavingsEntry.query.filter_by(
+        user_id=str(current_user.id)).all()
 
     if savings_form.validate_on_submit():
         print(savings_form.data)
 
-    return render_template('savings/savings.jinja', savings_form=savings_form, goal_form=goal_form)
+    return render_template('savings/savings.jinja', savings_form=savings_form, goal_form=goal_form, savings=user_savings)
 
 
 @savings_bp.route('/savings/goal', methods=['POST'])
