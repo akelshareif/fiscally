@@ -48,10 +48,13 @@
                 <h4 class="card-header">
                     <div class="row">
                         <div class="col">
-                            Bills
+                            <p class="mb-1">Bills</p>
                         </div>
-                        <div class="col text-right d-none delete-btn">
-                            <i class="far fa-trash-alt"></i>
+                        <div class="col text-right d-none delete-div">
+                            <button class="btn btn-sm btn-danger delete-btn">
+                                <i class="far fa-trash-alt"></i>
+                                &nbsp; Delete
+                            </button>
                         </div>
                     </div>
                 </h4>
@@ -67,7 +70,7 @@
                         </thead>
                         <tbody>
                             {% for bill in bills %}
-                                <tr>
+                                <tr data-bill-id="{{bill.id}}">
                                     <th scope="row">
                                         <input type="checkbox" />
                                     </th>
@@ -79,8 +82,8 @@
                         </tbody>
                     </table>
                 {% else %}
-                    <div class="jumbotron mb-0">
-                        <p class="lead text-center">No bills have been entered yet!</p>
+                    <div class="bg-light text-center text-muted pt-3">
+                        <p><em><b>No bills? Fill out the form to add some!</b></em></p>
                     </div>
                 {% endif %}
             </div>
