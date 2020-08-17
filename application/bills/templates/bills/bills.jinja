@@ -45,29 +45,50 @@
 
         <div class="col-md-8">
             <div class="card">
-                <h4 class="card-header">Bills</h4>
-                <table class="table table-sm table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th scope="col">Select</th>
-                            <th scope="col">Due Date</th>
-                            <th scope="col">Bill</th>
-                            <th scope="col">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">
-                                <input type="checkbox" />
-                            </th>
-                            <td>08/12/2020</td>
-                            <td>Car </td>
-                            <td>$254.89</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h4 class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            Bills
+                        </div>
+                        <div class="col text-right d-none delete-btn">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                </h4>
+                {% if bills %}
+                    <table class="table table-sm table-striped text-center mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Select</th>
+                                <th scope="col">Due Date</th>
+                                <th scope="col">Bill</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for bill in bills %}
+                                <tr>
+                                    <th scope="row">
+                                        <input type="checkbox" />
+                                    </th>
+                                    <td>{{bill.due_date}}</td>
+                                    <td>{{bill.name}}</td>
+                                    <td>${{bill.amount}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="jumbotron mb-0">
+                        <p class="lead text-center">No bills have been entered yet!</p>
+                    </div>
+                {% endif %}
             </div>
         </div>
 
     </div>
 {% endblock content %}
+
+{% block script_tag %}
+    <script src="{{url_for('static', filename='bills.js')}}"></script>
+{% endblock script_tag %}
