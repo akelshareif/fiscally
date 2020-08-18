@@ -92,26 +92,45 @@ class Bill(db.Model):
 class SavingsEntry(db.Model):
     """ Model for Savings Entries """
 
+    __tablename__ = 'savings_entries'
+
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     savings_date = db.Column(db.Date, default=date.today(), nullable=False)
     transaction_type = db.Column(db.String(10), nullable=False)
     amount = db.Column(db.Float(precision=2), nullable=False)
-    total = db.Column(db.Float(precision=2), default=0.00)
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
+    total_savings = db.relationship(
+        'SavingsTotal', backref='savings_entries', cascade='all, delete, delete-orphan')
 
     def __repr__(self):
         return f'<SavingsEntry transaction={self.transaction_type} amount={self.amount} user={self.user_id}>'
 
 
+class SavingsTotal(db.Model):
+    """ Total savings model """
+
+    __tablename__ = 'total_savings_log'
+
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    total = db.Column(db.Float(precision=2), nullable=False)
+    savings_id = db.Column(UUID, db.ForeignKey('savings_entries.id'))
+    user_id = db.Column(UUID, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return f'<SavingsTotal total={self.total} savings_id={self.savings_id}>'
+
+
 class SavingsGoal(db.Model):
     """ Savings Goal Model """
+
+    __tablename__ = 'savings_goals'
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     start_date = db.Column(db.Date, default=date.today(), nullable=False)
     end_date = db.Column(db.Date, default=date.today(), nullable=False)
     amount = db.Column(db.Float(precision=2), nullable=False)
-    previous_amount = db.Column(db.Float(precision=2), default=0.00)
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
+    savings_total_id = db.Column(UUID, db.ForeignKey('total_savings_log.id'))
 
     def __repr__(self):
         return f'<SavingsGoal amount={self.amount} user={self.user_id}>'

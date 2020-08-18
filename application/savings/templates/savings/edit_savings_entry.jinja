@@ -1,0 +1,55 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Edit Savings Entry
+{% endblock title %}
+
+{% block content %}
+    <h3 class="text-center text-primary">Edit {{entry.savings_date.strftime('%m/%d/%Y')}}'s Savings Entry</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{url_for('savings.edit_savings_entry', savings_entry_id=entry.id)}}" method="POST">
+                        {{form.hidden_tag()}}
+                        <div class="form-group">
+                            {{form.savings_date.label}}
+                            {{form.savings_date(class_="form-control")}}
+                            {% for error in form.savings_date.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{form.transaction_type.label(class_="d-block")}}
+                            <div class="ml-1">
+                                {% for radio in form.transaction_type %}
+                                    <div class="form-check form-check-inline">
+                                        {{radio(class_="form-check-input")}}
+                                        {{radio.label(class_="form-check-label")}}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% for error in form.transaction_type.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{form.amount.label}}
+                            {{form.amount(class_="form-control")}}
+                            {% for error in form.amount.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-block btn-info">
+                            <i class="far fa-edit"></i>
+                            &nbsp; Edit
+                        </button>
+                        <a href="{{url_for('savings.savings_display')}}" class="btn btn-block btn-secondary">
+                            Cancel
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

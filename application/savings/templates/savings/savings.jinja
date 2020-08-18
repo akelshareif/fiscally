@@ -69,7 +69,7 @@
                 <div class="bg-danger text-center errors p-0 m-0 d-none" style="color: white;">
                     You can only edit one savings entry at a time
                 </div>
-                    {% if savings %}
+                    {% if savings_totals %}
                         <table class="table table-sm table-striped text-center">
                             <thead>
                                 <tr>
@@ -80,18 +80,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for entry in savings %}
-                                    <tr data-savings-entry-id="{{entry.id}}">
+                                {% for (savings_entry, total_entry) in savings_totals %}
+                                    <tr data-savings-entry-id="{{savings_entry.id}}">
                                         <th scope="row">
                                             <input type="checkbox" />
                                         </th>
-                                        <td>{{entry.savings_date}}</td>
-                                        {% if entry.transaction_type == '-' %}
-                                            <td class="text-danger">- ${{entry.amount}}</td>
+                                        <td>{{savings_entry.savings_date}}</td>
+                                        {% if savings_entry.transaction_type == '-' %}
+                                            <td class="text-danger">- ${{savings_entry.amount}}</td>
                                         {% else %}
-                                            <td class="text-success">+ ${{entry.amount}}</td>
+                                            <td class="text-success">+ ${{savings_entry.amount}}</td>
                                         {% endif %}
-                                        <td>${{entry.total}}</td>
+                                        <td>${{total_entry.total}}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
