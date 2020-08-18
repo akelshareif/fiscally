@@ -81,17 +81,17 @@
                             </thead>
                             <tbody>
                                 {% for entry in savings %}
-                                    <tr>
+                                    <tr data-savings-entry-id="{{entry.id}}">
                                         <th scope="row">
                                             <input type="checkbox" />
                                         </th>
                                         <td>{{entry.savings_date}}</td>
-                                        {% if entry.transaction_type == 'withdraw' %}
+                                        {% if entry.transaction_type == '-' %}
                                             <td class="text-danger">- ${{entry.amount}}</td>
                                         {% else %}
                                             <td class="text-success">+ ${{entry.amount}}</td>
                                         {% endif %}
-                                        <td>{{entry.total}}</td>
+                                        <td>${{entry.total}}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -108,3 +108,7 @@
     </div>
 
 {% endblock content %}
+
+{% block script_tag %}
+    <script type="module" src="{{url_for('static', filename='savings.js')}}"></script>
+{% endblock script_tag %}

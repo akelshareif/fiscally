@@ -10,8 +10,8 @@ class SavingsForm(FlaskForm):
     savings_date = DateField('Transaction Date', validators=[
                              InputRequired(message="You must select a date.")])
 
-    transaction = RadioField('Transaction Type', choices=[(
-        'deposit', 'Deposit'), ('withdraw', 'Withdraw')], validators=[InputRequired(message="You must select a transaction type.")])
+    transaction_type = RadioField('Transaction Type', choices=[(
+        '+', 'Deposit'), ('-', 'Withdraw')], validators=[InputRequired(message="You must select a transaction type.")])
 
     amount = DecimalField('Amount', validators=[
                           InputRequired(message="You must enter an amount.")])

@@ -106,5 +106,5 @@
 {% endblock content %}
 
 {% block script_tag %}
-    <script src="{{url_for('static', filename='bills.js')}}"></script>
+    <script type="module" src="{{url_for('static', filename='bills.js')}}"></script>
 {% endblock script_tag %}

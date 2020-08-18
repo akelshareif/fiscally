@@ -1,4 +1,4 @@
-const billsTable = document.querySelector('table');
+const savingsTable = document.querySelector('table');
 const editDeleteDiv = document.querySelector('.edit-delete-div');
 const deleteBtn = document.querySelector('.delete-btn');
 const errorsDiv = document.querySelector('.errors');
@@ -11,10 +11,10 @@ import {
 } from './editDeleteHandler.js';
 
 // Show/hide delete btn and row highlight upon checkbox click
-toggleDeleteBtnShow(billsTable, editDeleteDiv);
+toggleDeleteBtnShow(savingsTable, editDeleteDiv);
 
 // Handle bill edit
-handleEdit(editBtn, errorsDiv, 'data-bill-id', '/user/bills/edit');
+handleEdit(editBtn, errorsDiv, 'data-savings-entry-id', '/user/savings/edit');
 
 // Handle bill deletion
-handleDelete(deleteBtn, 'data-bill-id', '/user/bills/delete');
+handleDelete(deleteBtn, 'data-savings-entry-id', '/user/savings/delete');

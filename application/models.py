@@ -96,7 +96,7 @@ class SavingsEntry(db.Model):
     savings_date = db.Column(db.Date, default=date.today(), nullable=False)
     transaction_type = db.Column(db.String(10), nullable=False)
     amount = db.Column(db.Float(precision=2), nullable=False)
-    total = db.Column(db.Float(precision=2), nullable=False)
+    total = db.Column(db.Float(precision=2), default=0.00)
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):
