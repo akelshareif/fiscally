@@ -1,6 +1,6 @@
 <div id="savingstarget" class="collapse" aria-labelledby="savings-goal" data-parent="#savings-options">
     <div class="card-body">
-        <form action="{{url_for('savings.savings_goal')}}" method="POST">
+        <form action="{{url_for('savings.savings_goal')}}" method="POST" class="goal-form">
             {{goal_form.csrf_token(id="csrf_token_2")}}
             <div class="form-group">
                 {{goal_form.goal_start.label}}

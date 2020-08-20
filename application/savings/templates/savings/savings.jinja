@@ -9,7 +9,7 @@
     <div class="row">
     
         <div class="col-md-4 mb-2">
-            <h3 class="text-center">Savings Options</h3>
+            <h3 class="text-center text-primary">Savings Options</h3>
             <div class="accordion" id="savings-options">
                 <div class="card">
                     <div class="card-header" id="transaction">
@@ -35,11 +35,76 @@
         </div>
 
         <div class="col-md-8">
+
+
+            {# Savings Goals Graphics #}
             <div class="row">
                 <div class="col">
-                    <h2>Savings Total Here</h2>
+                    <h3 class="text-center text-primary">Savings Info</h3>
+                    <div class="mb-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-primary">Savings Goal</h4>
+                            </div>
+                            {% if savings_goal %}
+                                <div class="card-body savings-goal">
+                                    <div class="alert alert-danger text-center p-1 d-none goal-update">
+                                        <div class="row">
+                                            <div class="col">Adding a new savings goal will delete your current goal.</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">Do you still want to proceed?</div>
+                                        </div>
+                                        <div class="row mt-2 justify-content-center">
+                                            <div class="col-1">
+                                                <button class="btn btn-sm btn-warning yes-btn">Yes</button>
+                                            </div>
+                                            <div class="col-1">
+                                                <button class="btn btn-sm btn-info no-btn">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h5 class="text-center text-primary mb-3">Saved</h5>
+                                        <div class="progress my-2" style="height: 30px; font-size: 1rem;">
+                                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{goal_percentage}}" aria-valuemin="0" aria-valuemax="{{savings_goal.amount}}" style="width: {{goal_percentage}};">{{goal_percentage}}%</div>
+                                        </div>
+                                        <div class="row justify-content-between">
+                                            <div class="col-2">
+                                                <b class="text-success">$0</b>
+                                            </div>
+                                            <div class="col-2 text-right">
+                                                <b class="text-success">${{savings_goal.amount}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h5 class="text-center text-primary mb-3">Time Elapsed</h5>
+                                        <div class="progress my-2">
+                                            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%">50%</div>
+                                        </div>
+                                        <div class="row justify-content-between">
+                                            <div class="col-2">
+                                                <b class="text-info">{{savings_goal.start_date}}</b>
+                                            </div>
+                                            <div class="col-2 text-right">
+                                                <b class="text-info">{{savings_goal.end_date}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="bg-light text-center text-muted pt-3">
+                                    <p><em><b>No savings goal? Fill out the savings goal form to add one!</b></em></p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+            {# Savings activity table #}
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -85,7 +150,7 @@
                                         <th scope="row">
                                             <input type="checkbox" />
                                         </th>
-                                        <td>{{savings_entry.savings_date}}</td>
+                                        <td>{{savings_entry.savings_date.strftime('%m/%d/%Y')}}</td>
                                         {% if savings_entry.transaction_type == '-' %}
                                             <td class="text-danger">- ${{savings_entry.amount}}</td>
                                         {% else %}
@@ -98,12 +163,13 @@
                         </table>
                     {% else %}
                         <div class="bg-light text-center text-muted pt-3">
-                            <p><em><b>No savings? Fill out the form to add some!</b></em></p>
+                            <p><em><b>No savings entries? Fill out the savings form to add some!</b></em></p>
                         </div>
                     {% endif %}
                 </div>
             </div>
         </div>
+
     
     </div>
 

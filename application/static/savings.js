@@ -18,3 +18,27 @@ handleEdit(editBtn, errorsDiv, 'data-savings-entry-id', '/user/savings/edit');
 
 // Handle bill deletion
 handleDelete(deleteBtn, 'data-savings-entry-id', '/user/savings/delete');
+
+// Handle savings goals updates
+const savingsGoalForm = document.querySelector('.goal-form');
+const savingsGoalUpdateAlert = document.querySelector('.goal-update');
+const yesBtn = document.querySelector('.yes-btn');
+const noBtn = document.querySelector('.no-btn');
+
+savingsGoalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // upon submit, if goal is present, show warning, else, submit form
+    if (document.querySelector('.savings-goal')) {
+        savingsGoalUpdateAlert.classList.remove('d-none');
+    } else {
+        savingsGoalForm.submit();
+    }
+});
+
+yesBtn.addEventListener('click', () => {
+    savingsGoalForm.submit();
+});
+
+noBtn.addEventListener('click', () => {
+    savingsGoalUpdateAlert.classList.add('d-none');
+});
