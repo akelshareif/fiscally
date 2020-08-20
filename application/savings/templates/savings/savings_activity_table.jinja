@@ -1,0 +1,61 @@
+<div class="col">
+    <div class="card">
+        <div class="card-header">
+    <div class="row">
+        <div class="col">
+            <h4 class="mb-1">Savings Activity</h4>
+        </div>
+        <div class="col text-right d-none edit-delete-div">
+            <div class="row justify-content-end">
+                <div class="col-md-5 py-0 pr-sm-3 pl-0 mb-1">
+                    <button class="btn btn-sm btn-info edit-btn" style="width: 80px;">
+                        <i class="far fa-edit"></i>
+                        &nbsp; Edit
+                    </button>
+                </div>
+                <div class="col-md-5 py-0 pr-3 pl-0">
+                    <button class="btn btn-sm btn-danger delete-btn" style="width: 80px;">
+                        <i class="far fa-trash-alt"></i>
+                        &nbsp; Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-danger text-center errors p-0 m-0 d-none" style="color: white;">
+    You can only edit one savings entry at a time
+</div>
+    {% if savings_totals %}
+        <table class="table table-sm table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Select</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for (savings_entry, total_entry) in savings_totals %}
+                    <tr data-savings-entry-id="{{savings_entry.id}}">
+                        <th scope="row">
+                            <input type="checkbox" />
+                        </th>
+                        <td>{{savings_entry.savings_date.strftime('%m/%d/%Y')}}</td>
+                        {% if savings_entry.transaction_type == '-' %}
+                            <td class="text-danger">- ${{savings_entry.amount}}</td>
+                        {% else %}
+                            <td class="text-success">+ ${{savings_entry.amount}}</td>
+                        {% endif %}
+                        <td>${{total_entry.total}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="bg-light text-center text-muted pt-3">
+            <p><em><b>No savings entries? Fill out the savings form to add some!</b></em></p>
+        </div>
+    {% endif %}
+</div>

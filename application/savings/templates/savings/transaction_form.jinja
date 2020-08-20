@@ -4,7 +4,7 @@
             {{savings_form.csrf_token(id="csrf_token_1")}}
             <div class="form-group">
                 {{savings_form.savings_date.label}}
-                {{savings_form.savings_date(class_="form-control")}}
+                {{savings_form.savings_date(class_="form-control", min=savings_form.savings_date.data)}}
                 {% for error in savings_form.savings_date.errors %}
                     <div class="text-danger ml-1">{{error}}</div>
                 {% endfor %}

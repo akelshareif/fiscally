@@ -4,14 +4,14 @@
             {{goal_form.csrf_token(id="csrf_token_2")}}
             <div class="form-group">
                 {{goal_form.goal_start.label}}
-                {{goal_form.goal_start(class_="form-control")}}
+                {{goal_form.goal_start(class_="form-control", min=goal_form.goal_start.data)}}
                 {% for error in goal_form.goal_start.errors %}
                     <div class="text-danger ml-1">{{error}}</div>
                 {% endfor %}
             </div>
             <div class="form-group">
                 {{goal_form.goal_end.label}}
-                {{goal_form.goal_end(class_="form-control")}}
+                {{goal_form.goal_end(class_="form-control", min=goal_form.goal_start.data)}}
                 {% for error in goal_form.goal_end.errors %}
                     <div class="text-danger ml-1">{{error}}</div>
                 {% endfor %}
@@ -19,11 +19,9 @@
             <div class="form-group">
                 {{goal_form.goal_amount.label}}
                 {{goal_form.goal_amount(class_="form-control", placeholder="Enter Goal Amount")}}
-            </div>
-            <div class="form-group">
-                {{goal_form.current_savings.label}}
-                {{goal_form.current_savings(class_="form-control", placeholder="Enter Current Savings (Optional)")}}
-                <small class="text-muted ml-1">This is optional</small>
+                {% for error in goal_form.goal_amount.errors %}
+                    <div class="text-danger ml-1">{{error}}</div>
+                {% endfor %}
             </div>
             <button class="btn btn-block btn-success">
                 <i class="fas fa-plus"></i>

@@ -43,57 +43,10 @@
                     <h3 class="text-center text-primary">Savings Info</h3>
                     <div class="mb-2">
                         <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-primary">Savings Goal</h4>
-                            </div>
                             {% if savings_goal %}
-                                <div class="card-body savings-goal">
-                                    <div class="alert alert-danger text-center p-1 d-none goal-update">
-                                        <div class="row">
-                                            <div class="col">Adding a new savings goal will delete your current goal.</div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">Do you still want to proceed?</div>
-                                        </div>
-                                        <div class="row mt-2 justify-content-center">
-                                            <div class="col-1">
-                                                <button class="btn btn-sm btn-warning yes-btn">Yes</button>
-                                            </div>
-                                            <div class="col-1">
-                                                <button class="btn btn-sm btn-info no-btn">No</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <h5 class="text-center text-primary mb-3">Saved</h5>
-                                        <div class="progress my-2" style="height: 30px; font-size: 1rem;">
-                                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{goal_percentage}}" aria-valuemin="0" aria-valuemax="{{savings_goal.amount}}" style="width: {{goal_percentage}};">{{goal_percentage}}%</div>
-                                        </div>
-                                        <div class="row justify-content-between">
-                                            <div class="col-2">
-                                                <b class="text-success">$0</b>
-                                            </div>
-                                            <div class="col-2 text-right">
-                                                <b class="text-success">${{savings_goal.amount}}</b>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h5 class="text-center text-primary mb-3">Time Elapsed</h5>
-                                        <div class="progress my-2">
-                                            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%">50%</div>
-                                        </div>
-                                        <div class="row justify-content-between">
-                                            <div class="col-2">
-                                                <b class="text-info">{{savings_goal.start_date}}</b>
-                                            </div>
-                                            <div class="col-2 text-right">
-                                                <b class="text-info">{{savings_goal.end_date}}</b>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% include "savings/savings_progress.jinja" %}
                             {% else %}
+                                <h4 class="card-header text-primary">Savings Goal</h4>
                                 <div class="bg-light text-center text-muted pt-3">
                                     <p><em><b>No savings goal? Fill out the savings goal form to add one!</b></em></p>
                                 </div>
@@ -106,67 +59,7 @@
 
             {# Savings activity table #}
             <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header">
-                    <div class="row">
-                        <div class="col">
-                            <h4 class="mb-1">Savings Activity</h4>
-                        </div>
-                        <div class="col text-right d-none edit-delete-div">
-                            <div class="row justify-content-end">
-                                <div class="col-md-5 py-0 pr-sm-3 pl-0 mb-1">
-                                    <button class="btn btn-sm btn-info edit-btn" style="width: 80px;">
-                                        <i class="far fa-edit"></i>
-                                        &nbsp; Edit
-                                    </button>
-                                </div>
-                                <div class="col-md-5 py-0 pr-3 pl-0">
-                                    <button class="btn btn-sm btn-danger delete-btn" style="width: 80px;">
-                                        <i class="far fa-trash-alt"></i>
-                                        &nbsp; Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-danger text-center errors p-0 m-0 d-none" style="color: white;">
-                    You can only edit one savings entry at a time
-                </div>
-                    {% if savings_totals %}
-                        <table class="table table-sm table-striped text-center">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Select</th>
-                                    <th scope="col">Date Added</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for (savings_entry, total_entry) in savings_totals %}
-                                    <tr data-savings-entry-id="{{savings_entry.id}}">
-                                        <th scope="row">
-                                            <input type="checkbox" />
-                                        </th>
-                                        <td>{{savings_entry.savings_date.strftime('%m/%d/%Y')}}</td>
-                                        {% if savings_entry.transaction_type == '-' %}
-                                            <td class="text-danger">- ${{savings_entry.amount}}</td>
-                                        {% else %}
-                                            <td class="text-success">+ ${{savings_entry.amount}}</td>
-                                        {% endif %}
-                                        <td>${{total_entry.total}}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <div class="bg-light text-center text-muted pt-3">
-                            <p><em><b>No savings entries? Fill out the savings form to add some!</b></em></p>
-                        </div>
-                    {% endif %}
-                </div>
+                {% include "savings/savings_activity_table.jinja" %}
             </div>
         </div>
 

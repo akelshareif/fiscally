@@ -1,3 +1,4 @@
+from datetime import date
 from application import db
 from ..models import SavingsEntry, SavingsTotal
 
@@ -37,7 +38,7 @@ def savings_progress_percentage(savings_goal, curr_user):
     if savings_goal:
         goal_percentage = round((calculated_total/savings_goal.amount)*100, 2)
 
-    return goal_percentage
+    return goal_percentage, round(calculated_total, 2)
 
 
 def get_calculated_total(curr_user):
@@ -50,3 +51,17 @@ def get_calculated_total(curr_user):
                             '+' else -savings.amount for savings in fresh_savings_entries])
 
     return calculated_total
+
+
+def savings_goal_time_percentage(savings_goal):
+    """ Returns time elapsed percentage, days elapsed, and total number of days """
+
+    total_goal_days = (savings_goal.end_date -
+                       savings_goal.start_date).days
+
+    if total_goal_days == 0:
+        return 100, 1, 1
+    else:
+        days_elapsed = (date.today() - savings_goal.start_date).days
+        time_elapsed_percentage = round((days_elapsed/total_goal_days)*100, 2)
+        return time_elapsed_percentage, days_elapsed, total_goal_days

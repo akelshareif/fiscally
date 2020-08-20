@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from application import db
 from .savings_forms import SavingsForm, SavingsGoalForm
 from ..models import SavingsEntry, SavingsGoal, SavingsTotal
-from .savings_helper import recalculate_totals, get_calculated_total, savings_progress_percentage
+from .savings_helper import recalculate_totals, get_calculated_total, savings_progress_percentage, savings_goal_time_percentage
 
 
 savings_bp = Blueprint('savings', __name__,
@@ -42,13 +42,21 @@ def savings_display():
 
         return redirect(url_for('savings.savings_display'))
 
-    # Retrieve savings goal data from db
+    # Retrieve savings goal data from db, calculate goal_percentage, and time elapsed percentage
     savings_goal = SavingsGoal.query.filter(
         SavingsGoal.user_id == str(current_user.id)).first()
 
-    goal_percentage = savings_progress_percentage(savings_goal, current_user)
+    if savings_goal:
+        goal_percentage, total_savings = savings_progress_percentage(
+            savings_goal, current_user)
 
-    return render_template('savings/savings.jinja', savings_form=savings_form, goal_form=goal_form, savings_totals=savings_entries_and_totals, savings_goal=savings_goal, goal_percentage=goal_percentage)
+        days_elapsed_percentage, days_elapsed, total_goal_days = savings_goal_time_percentage(
+            savings_goal)
+
+        return render_template('savings/savings.jinja', savings_form=savings_form, goal_form=goal_form, savings_totals=savings_entries_and_totals, savings_goal=savings_goal,
+                               goal_percentage=goal_percentage, total=total_savings, days_elapsed_percentage=days_elapsed_percentage, days_elapsed=days_elapsed, total_goal_days=total_goal_days)
+    else:
+        return render_template('savings/savings.jinja', savings_form=savings_form, goal_form=goal_form, savings_totals=savings_entries_and_totals, savings_goal=savings_goal)
 
 
 @savings_bp.route('/savings/edit/<savings_entry_id>', methods=['GET', 'POST'])
@@ -108,9 +116,23 @@ def savings_goal():
             db.session.commit()
 
         new_goal = SavingsGoal(start_date=goal_form.goal_start.data, end_date=goal_form.goal_end.data,
-                               amount=goal_form.goal_amount.data, current_savings=goal_form.current_savings.data, user_id=str(current_user.id))
+                               amount=goal_form.goal_amount.data, user_id=str(current_user.id))
 
         db.session.add(new_goal)
         db.session.commit()
+
+    return redirect(url_for('savings.savings_display'))
+
+
+@savings_bp.route('/savings/goal/delete', methods=['POST'])
+@login_required
+def delete_savings_goal():
+    """ Handle savings goal deletion """
+
+    current_goal = SavingsGoal.query.filter(
+        SavingsGoal.user_id == str(current_user.id)).one_or_none()
+
+    db.session.delete(current_goal)
+    db.session.commit()
 
     return redirect(url_for('savings.savings_display'))

@@ -130,7 +130,6 @@ class SavingsGoal(db.Model):
     start_date = db.Column(db.Date, default=date.today(), nullable=False)
     end_date = db.Column(db.Date, default=date.today(), nullable=False)
     amount = db.Column(db.Float(precision=2), nullable=False)
-    current_savings = db.Column(db.Float(precision=2), default=0.00)
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):
