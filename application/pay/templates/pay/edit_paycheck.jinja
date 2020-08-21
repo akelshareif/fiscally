@@ -1,0 +1,96 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Edit Paycheck
+{% endblock title %}
+
+{% block content %}
+    <h3 class="text-center text-primary">Edit Paycheck</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <form action="{{url_for('taxee.edit_taxee_api', paycheck_id=paycheck_id)}}" method="POST">
+                        {{form.hidden_tag()}}
+                        <div class="form-group">
+                            {{form.pay_date.label}}
+                            {{form.pay_date(class_="form-control")}}
+                            {% for error in form.pay_date.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{form.state.label}}
+                            {% for error in form.state.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                            <select class="form-control" name="state">
+                            {% for option in form.state %}
+                                {{option}}
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            {{form.gross_pay.label}}
+                            {{form.gross_pay(class_="form-control")}}
+                            {% for error in form.gross_pay.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{form.pre_tax_deductions.label}}
+                            {{form.pre_tax_deductions(class_="form-control")}}
+                            {% for error in form.pre_tax_deductions.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{form.exemptions.label}}
+                            {{form.exemptions(class_="form-control")}}
+                            {% for error in form.exemptions.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    {{form.pay_frequency.label}}
+                                    {% for error in form.pay_frequency.errors %}
+                                        <div class="text-danger ml-1">{{error}}</div>
+                                    {% endfor %}
+                                    {% for radio in form.pay_frequency %}
+                                        <div class="form-check ml-2">
+                                            {{radio(class_="form-check-input")}}
+                                            {{radio.label(class_="form-check-label")}}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    {{form.filing_status.label}}
+                                    {% for error in form.filing_status.errors %}
+                                        <div class="text-danger ml-1">{{error}}</div>
+                                    {% endfor %}
+                                    {% for radio in form.filing_status %}
+                                        <div class="form-check ml-2">
+                                            {{radio(class_="form-check-input")}}
+                                            {{radio.label(class_="form-check-label")}}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-info mb-2">
+                            <i class="fas fa-edit"></i>
+                            &nbsp; Edit Paycheck
+                        </button>
+                        <a href="{{url_for('pay.pay_display')}}" class="btn btn-block btn-secondary">
+                            Cancel
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -70,7 +70,7 @@ class Paycheck(db.Model):
     filing_status = db.Column(db.Text, nullable=False)
     state = db.Column(db.Text, nullable=False)
     exemptions = db.Column(db.Integer, nullable=False)
-    gross = db.Column(db.Float(precision=2), nullable=False)
+    gross_pay = db.Column(db.Float(precision=2), nullable=False)
     pre_tax_deductions = db.Column(db.Float(precision=2), default=0.00)
     federal_taxes = db.Column(db.Float(precision=2), nullable=False)
     state_taxes = db.Column(db.Float(precision=2), nullable=False)

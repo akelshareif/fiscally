@@ -43,7 +43,7 @@
     {% if paychecks %}
         <div class="card mb-4">
             <h4 class="card-header">Paychecks</h4>
-            <div class="card-body">
+            <div class="card-body paystubs">
 
                 {% for paycheck in paychecks %}
                     <div class="card mb-3">
@@ -53,12 +53,30 @@
                                     <b>Pay Date:</b> &nbsp; {{paycheck.pay_date.strftime("%m/%d/%Y")}}
                                 </div>
                                 <div class="col text-right">
-                                        {# action="{{url_for('pay.delete_paycheck', paycheck_id=paycheck.id)}}" #}
-                                        <button class="btn btn-sm btn-danger">
+                                        <a href="{{url_for('pay.edit_paycheck', paycheck_id=paycheck.id)}}" class="btn btn-sm btn-info mt-1" style="width: 80px;">
+                                            <i class="far fa-edit"></i>
+                                            &nbsp; Edit
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger mt-1 ml-2 delete" style="width: 80px;">
                                             <i class="fas fa-trash-alt"></i>
                                             &nbsp; Delete
                                         </button>
                                     <form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-warning p-1 text-center text-light warning-div d-none">
+                            Are you sure you want to delete this paycheck?
+                            <div class="row my-1 justify-content-center">
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-sm btn-danger confirm-delete" data-paycheck-id="{{paycheck.id}}">
+                                        Yes
+                                    </button>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-sm btn-info cancel-delete">
+                                        No
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +89,7 @@
                                             <b>Pay Frequency:</b>
                                         </div>
                                         <div class="col text-right">
-                                            {{paycheck.pay_frequency}}
+                                            {{pay_frequency_dict[paycheck.pay_frequency]}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -87,7 +105,7 @@
                                             <b>Filing Status:</b> 
                                         </div>
                                         <div class="col text-right">
-                                            {{paycheck.filing_status}}
+                                            {{paycheck.filing_status.capitalize()}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -108,6 +126,14 @@
                                     </div>
                                 </div>
                                 <div class="col border-left">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>Taxable Income:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.gross_pay-paycheck.pre_tax_deductions}}
+                                        </div>
+                                    </div>
                                     <div class="row mb-2">
                                         <div class="col">
                                             <b>Federal Taxes:</b>
@@ -150,7 +176,7 @@
                                             <b>Gross Pay:</b> 
                                         </div>
                                         <div class="col text-right">
-                                            ${{paycheck.gross}}
+                                            ${{paycheck.gross_pay}}
                                         </div>
                                     </div>
                                 </div>

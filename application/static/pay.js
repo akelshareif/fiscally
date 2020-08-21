@@ -111,3 +111,41 @@ salaryForm.addEventListener('submit', (e) => {
         salaryResults.innerText = `Your total ${payFrequencyText} gross pay is: $${grossPayResult}`;
     }
 });
+
+/* ###### Delete paycheck handlers ###### */
+const confirmDeleteBtns = document.querySelectorAll('.confirm-delete');
+const cancelDeleteBtns = document.querySelectorAll('.cancel-delete');
+
+const paystubsDiv = document.querySelector('.paystubs');
+
+paystubsDiv.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+        e.target.parentElement.parentElement.parentElement.nextElementSibling.classList.remove(
+            'd-none'
+        );
+    } else if (e.target.tagName === 'I') {
+        e.target.parentElement.parentElement.parentElement.parentElement.nextElementSibling.classList.remove(
+            'd-none'
+        );
+    }
+});
+
+for (const confirmDeleteBtn of confirmDeleteBtns) {
+    confirmDeleteBtn.addEventListener('click', async () => {
+        const paycheckId = confirmDeleteBtn.getAttribute('data-paycheck-id');
+
+        const { data } = await axios.post('/user/pay/delete', { paycheckId });
+
+        if (data['msg'] === 'success') {
+            location.reload();
+        }
+    });
+}
+
+for (const cancelDeleteBtn of cancelDeleteBtns) {
+    cancelDeleteBtn.addEventListener('click', (e) => {
+        e.target.parentElement.parentElement.parentElement.classList.add(
+            'd-none'
+        );
+    });
+}
