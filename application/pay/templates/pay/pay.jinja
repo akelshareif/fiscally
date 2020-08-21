@@ -21,7 +21,7 @@
             <div class="card-header" id="calculate-hourly">
                 <h2 class="mb-0">
                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#hourlyform" aria-expanded="false" aria-controls="hourlyform">
-                        Calculate Gross Pay: Hourly Rate
+                        Calculate Per-Pay-Period: Hourly Rate
                     </button>
                 </h2>
             </div>
@@ -31,7 +31,7 @@
             <div class="card-header" id="calculate-salary">
                 <h2 class="mb-0">
                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#salaryform" aria-expanded="false" aria-controls="salarylyform">
-                        Calculate Gross Pay: Annual Salary
+                        Calculate Per-Pay-Period: Annual Salary
                     </button>
                 </h2>
             </div>
@@ -40,31 +40,141 @@
     </div>
 
 
-    <h3 class="text-primary ml-2">Paychecks</h3>
-    <div class="card">
-        <table class="table table-striped text-center">
-            <thead>
-                <tr>
-                    <th scope="col">Select</th>
-                    <th scope="col">Pay Date</th>
-                    <th scope="col">Gross</th>
-                    <th scope="col">Net</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <input type="checkbox" />
-                    </th>
-                    <td>08/12/2020</td>
-                    <td>$1000.00</td>
-                    <td>$854.89</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    {% if paychecks %}
+        <div class="card mb-4">
+            <h4 class="card-header">Paychecks</h4>
+            <div class="card-body">
+
+                {% for paycheck in paychecks %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col align-self-center">
+                                    <b>Pay Date:</b> &nbsp; {{paycheck.pay_date.strftime("%m/%d/%Y")}}
+                                </div>
+                                <div class="col text-right">
+                                        {# action="{{url_for('pay.delete_paycheck', paycheck_id=paycheck.id)}}" #}
+                                        <button class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                            &nbsp; Delete
+                                        </button>
+                                    <form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {# pay settings/taxes #}
+                            <div class="row border-bottom">
+                                <div class="col">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>Pay Frequency:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.pay_frequency}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>State:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.state}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>Filing Status:</b> 
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.filing_status}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>Exemptions:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.exemptions}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>Pre-Tax Deductions:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.pre_tax_deductions}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col border-left">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>Federal Taxes:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.federal_taxes}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>{{paycheck.state}} Taxes:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.state_taxes}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>FICA Taxes:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            {{paycheck.fica_taxes}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <b>Total Taxes:</b>
+                                        </div>
+                                        <div class="col text-right">
+                                            ${{paycheck.total_deductions}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {# gross pay/net pay #}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <b>Gross Pay:</b> 
+                                        </div>
+                                        <div class="col text-right">
+                                            ${{paycheck.gross}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col border-left">
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <b>Net Pay:</b> 
+                                        </div>
+                                        <div class="col text-right">
+                                            ${{paycheck.net}}
+                                        </div>
+                                    </div>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    {% endif %}
 {% endblock content %}
 
 {% block script_tag %}
-    <script src="{{url_for('static', filename='pay.js')}}"></script>
+    <script type="module" src="{{url_for('static', filename='pay.js')}}"></script>
 {% endblock script_tag %}

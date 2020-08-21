@@ -48,6 +48,7 @@ def create_app(is_testing=False):
         from .pay import pay
         from .bills import bills
         from .savings import savings
+        from .taxee_api import taxee
 
         # Register blueprints
         app.register_blueprint(home.home_bp)
@@ -56,5 +57,6 @@ def create_app(is_testing=False):
         app.register_blueprint(pay.pay_bp)
         app.register_blueprint(bills.bills_bp)
         app.register_blueprint(savings.savings_bp)
+        app.register_blueprint(taxee.taxee_bp)
 
         return app

@@ -2,9 +2,10 @@
 
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import login_required, current_user
-from ..models import Paycheck
+from application import db
 from .pay_forms import PaycheckForm, SalaryGrossPayForm
 from .pay_helpers import calculate_gross_pay
+from ..models import Paycheck
 
 pay_bp = Blueprint('pay', __name__, url_prefix='/user',
                    template_folder='templates')
@@ -18,12 +19,10 @@ def pay_display():
     paycheck_form = PaycheckForm()
     salary_gross_form = SalaryGrossPayForm()
 
-    if paycheck_form.validate_on_submit():
-        print(paycheck_form.pay_date.data.strftime("%m/%d/%Y"))
-        # You need to access the api here to calculate the net amount
-        # Then you can add data to db
+    paychecks = Paycheck.query.filter(
+        Paycheck.user_id == str(current_user.id)).all()
 
-    return render_template('pay/pay.jinja', pc_form=paycheck_form, salary_gross_form=salary_gross_form)
+    return render_template('pay/pay.jinja', pc_form=paycheck_form, salary_gross_form=salary_gross_form, paychecks=paychecks)
 
 
 @pay_bp.route('/pay/gross/calculate', methods=['POST'])
@@ -34,3 +33,14 @@ def calculate_gross():
     total_pay = calculate_gross_pay(pay_data)
 
     return {"gross": total_pay}
+
+
+@pay_bp.route('/pay/delete/<paycheck_id>', methods=['POST'])
+@login_required
+def delete_paycheck(paycheck_id):
+    """ Delete a paycheck entry """
+
+    paycheck = Paycheck.query.get(paycheck_id)
+    print(paycheck_id)
+
+    return redirect(url_for('pay.pay_display'))

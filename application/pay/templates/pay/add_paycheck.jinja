@@ -1,6 +1,6 @@
 <div id="addform" class="collapse show" aria-labelledby="add-paycheck" data-parent="#pay-views">
     <div class="card-body">
-        <form action="{{url_for('pay.pay_display')}}" method="POST">
+        <form action="{{url_for('taxee.taxee_api')}}" method="POST">
             {{pc_form.hidden_tag()}}
             <div class="row">
                 <div class="col-md-4">
@@ -46,30 +46,46 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="col-md-4">
-                    {{pc_form.pay_method.label}}
-                    {% for error in pc_form.pay_method.errors %}
+                <div class="col-md-4 mb-2">
+                    {{pc_form.pay_frequency.label}}
+                    {% for error in pc_form.pay_frequency.errors %}
                         <div class="text-danger ml-1">{{error}}</div>
                     {% endfor %}
-                    {% for radio in pc_form.pay_method %}
+                    {% for radio in pc_form.pay_frequency %}
                         <div class="form-check ml-2">
                             {{radio(class_="form-check-input")}}
                             {{radio.label(class_="form-check-label")}}
                         </div>
                     {% endfor %}
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{pc_form.state.label}}
-                        {% for error in pc_form.state.errors %}
-                            <div class="text-danger ml-1">{{error}}</div>
-                        {% endfor %}
-                        <select class="form-control" name="state">
-                        {% for option in pc_form.state %}
-                            {{option}}
-                        {% endfor %}
-                        </select>
+                <div class="col-md-4 mb-2">
+                    <div class="row">
+                       <div class="col">
+                            <div class="form-group">
+                                {{pc_form.pre_tax_deductions.label}}
+                                {{pc_form.pre_tax_deductions(class_="form-control", placeholder="Optional")}}
+                                {% for error in pc_form.pre_tax_deductions.errors %}
+                                    <div class="text-danger ml-1">{{error}}</div>
+                                {% endfor %}
+                            </div>
+                       </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                {{pc_form.state.label}}
+                                {% for error in pc_form.state.errors %}
+                                    <div class="text-danger ml-1">{{error}}</div>
+                                {% endfor %}
+                                <select class="form-control" name="state">
+                                {% for option in pc_form.state %}
+                                    {{option}}
+                                {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             <button type="submit" class="btn btn-success mb-3 float-right">
