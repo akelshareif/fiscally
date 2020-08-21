@@ -19,6 +19,9 @@ def bills_display():
 
     user_bills = Bill.query.filter_by(user_id=str(current_user.id)).all()
 
+    total_amount_due = round(
+        sum([bill.bill_amount for bill in user_bills if bill.is_paid == 'Not Paid']), 2)
+
     if bill_form.validate_on_submit():
         new_bill = Bill(bill_name=bill_form.bill_name.data,
                         bill_due_date=bill_form.bill_due_date.data, bill_amount=bill_form.bill_amount.data, user_id=str(current_user.id))
@@ -27,7 +30,27 @@ def bills_display():
         db.session.commit()
         return redirect(url_for('bills.bills_display'))
 
-    return render_template('bills/bills.jinja', bill_form=bill_form, bills=user_bills)
+    return render_template('bills/bills.jinja', bill_form=bill_form, bills=user_bills, total_amount_due=total_amount_due)
+
+
+@bills_bp.route('/bills/paid', methods=['POST'])
+@login_required
+def mark_bill_paid():
+    """ Marks a bill as paid """
+
+    bill_ids = request.json['idArr']
+
+    for id in bill_ids:
+        bill = Bill.query.get(id)
+
+        if bill.is_paid == 'Not Paid':
+            bill.is_paid = 'Paid'
+        else:
+            bill.is_paid = 'Not Paid'
+
+        db.session.commit()
+
+    return {"msg": "success"}
 
 
 @bills_bp.route('/bills/edit/<bill_id>', methods=['GET', 'POST'])

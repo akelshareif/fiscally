@@ -92,6 +92,7 @@ class Bill(db.Model):
     bill_name = db.Column(db.String(20), nullable=False)
     bill_due_date = db.Column(db.Date, default=date.today())
     bill_amount = db.Column(db.Float(precision=2), nullable=False)
+    is_paid = db.Column(db.Text, default='Not Paid')
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):

@@ -47,18 +47,24 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-3">
                             <h4 class="mb-1">Bills</h4>
                         </div>
-                        <div class="col text-right d-none edit-delete-div">
+                        <div class="col-9 text-right d-none edit-delete-div">
                             <div class="row justify-content-end">
-                                <div class="col-md-5 py-0 pr-sm-3 pl-0 mb-1">
+                                <div class="col-md-4 py-9 pl-0 mb-1">
+                                    <button class="btn btn-sm btn-success paid" style="width: 80px;">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        &nbsp; Pay
+                                    </button>
+                                </div>
+                                <div class="col-md-4 py-0 pr-sm-3 pl-0 mb-1">
                                     <button class="btn btn-sm btn-info edit-btn" style="width: 80px;">
                                         <i class="far fa-edit"></i>
                                         &nbsp; Edit
                                     </button>
                                 </div>
-                                <div class="col-md-5 py-0 pr-3 pl-0">
+                                <div class="col-md-4 py-0 pr-3 pl-0">
                                     <button class="btn btn-sm btn-danger delete-btn" style="width: 80px;">
                                         <i class="far fa-trash-alt"></i>
                                         &nbsp; Delete
@@ -72,6 +78,7 @@
                     You can only edit one bill at a time
                 </div>
                 {% if bills %}
+                    <div class="table-responsive">
                     <table class="table table-sm table-striped text-center mb-0">
                         <thead>
                             <tr>
@@ -79,21 +86,36 @@
                                 <th scope="col">Due Date</th>
                                 <th scope="col">Bill</th>
                                 <th scope="col">Amount</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for bill in bills %}
-                                <tr data-bill-id="{{bill.id}}">
-                                    <th scope="row">
-                                        <input type="checkbox" />
-                                    </th>
-                                    <td>{{bill.bill_due_date.strftime('%m/%d/%Y')}}</td>
-                                    <td>{{bill.bill_name}}</td>
-                                    <td>${{bill.bill_amount}}</td>
-                                </tr>
-                            {% endfor %}
+                                {% if bill.is_paid == 'Paid' %}
+                                    <tr data-bill-id="{{bill.id}}" class="table-success">
+                                {% else %}
+                                    <tr data-bill-id="{{bill.id}}">
+                                {% endif %}
+                                        <th scope="row">
+                                            <input type="checkbox" />
+                                        </th>
+                                        <td>{{bill.bill_due_date.strftime('%m/%d/%Y')}}</td>
+                                        <td>{{bill.bill_name}}</td>
+                                        <td>${{bill.bill_amount}}</td>
+                                        <td>{{bill.is_paid}}</td>
+                                    </tr>
+                            {% endfor %}    
                         </tbody>
                     </table>
+                    </div>
+                    <div class="py-2 text-center">
+                        <b>Total Amount Due:</b>
+                        {% if total_amount_due == 0 %}
+                            <span class="text-success">${{total_amount_due}}</span>
+                        {% else %}
+                            <span class="text-danger">${{total_amount_due}}</span>
+                        {% endif %}
+                    </div>
                 {% else %}
                     <div class="bg-light text-center text-muted pt-3">
                         <p><em><b>No bills? Fill out the form to add some!</b></em></p>
