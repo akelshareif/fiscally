@@ -28,6 +28,8 @@ def bills_display():
 
         db.session.add(new_bill)
         db.session.commit()
+
+        flash('Successfully added bill', 'success')
         return redirect(url_for('bills.bills_display'))
 
     return render_template('bills/bills.jinja', bill_form=bill_form, bills=user_bills, total_amount_due=total_amount_due)
@@ -67,6 +69,8 @@ def edit_bill(bill_id):
         bill.bill_due_date = bill_form.bill_due_date.data
         bill.bill_amount = bill_form.bill_amount.data
         db.session.commit()
+
+        flash('Successfully edited bill', 'info')
         return redirect(url_for('bills.bills_display'))
 
     return render_template('bills/edit_bill.jinja', form=bill_form, bill=bill)

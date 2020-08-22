@@ -2,7 +2,7 @@
 
 import requests
 from os import environ
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
 from application import db
 from ..models import Paycheck
@@ -53,6 +53,7 @@ def taxee_api():
         db.session.add(new_paycheck)
         db.session.commit()
 
+    flash('Your paycheck was successfully added', 'success')
     return redirect(url_for('pay.pay_display'))
 
 
@@ -108,4 +109,5 @@ def edit_taxee_api(paycheck_id):
 
         db.session.commit()
 
+    flash('Paycheck was successfully edited', 'info')
     return redirect(url_for('pay.pay_display'))

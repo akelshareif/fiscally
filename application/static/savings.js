@@ -13,10 +13,10 @@ import {
 // Show/hide delete btn and row highlight upon checkbox click
 toggleDeleteBtnShow(savingsTable, editDeleteDiv);
 
-// Handle bill edit
+// Handle savings edit
 handleEdit(editBtn, errorsDiv, 'data-savings-entry-id', '/user/savings/edit');
 
-// Handle bill deletion
+// Handle savings deletion
 handleDelete(deleteBtn, 'data-savings-entry-id', '/user/savings/delete');
 
 // ######### Handle savings goals updates ################

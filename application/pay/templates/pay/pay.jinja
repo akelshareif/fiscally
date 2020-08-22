@@ -5,6 +5,9 @@
 {% endblock title %}
 
 {% block content %}
+    {% for cat, msg in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{cat}} text-center" style="font-size: 1rem;">{{msg}}</div>
+    {% endfor %}
     <h3 class="text-primary ml-2">Options</h3>
     <div class="accordion mb-3" id="pay-views">
         <div class="card">

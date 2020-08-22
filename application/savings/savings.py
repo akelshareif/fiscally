@@ -1,6 +1,6 @@
 """ Savings routes """
 
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, url_for, flash
 from flask_login import login_required, current_user
 from application import db
 from .savings_forms import SavingsForm, SavingsGoalForm
@@ -42,6 +42,7 @@ def savings_display():
         db.session.add(new_savings_total)
         db.session.commit()
 
+        flash('Savings Entry was successfully added', 'success')
         return redirect(url_for('savings.savings_display'))
 
     # Retrieve savings goal data from db, calculate goal_percentage, and time elapsed percentage
@@ -78,6 +79,7 @@ def edit_savings_entry(savings_entry_id):
         # Recalculate savings_totals after edit and update db
         recalculate_totals(current_user)
 
+        flash('Savings Entry was successfully edited', 'info')
         return redirect(url_for('savings.savings_display'))
 
     return render_template('savings/edit_savings_entry.jinja', form=savings_form, entry=entry)
@@ -123,6 +125,7 @@ def savings_goal():
         db.session.add(new_goal)
         db.session.commit()
 
+    flash('Savings goal was successfully added', 'success')
     return redirect(url_for('savings.savings_display'))
 
 
@@ -137,4 +140,5 @@ def delete_savings_goal():
     db.session.delete(current_goal)
     db.session.commit()
 
+    flash('Savings goal was successfully deleted', 'warning')
     return redirect(url_for('savings.savings_display'))
