@@ -20,4 +20,4 @@ def calculate_gross_pay(pay_data):
     overtime_total = sum(overtime_pay)
 
     pay_total = round(base_total+overtime_total, 2)
-    return str(pay_total)
+    return '{:.2f}'.format(pay_total)

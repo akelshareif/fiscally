@@ -13,11 +13,11 @@
         </div>
     </div>
 </div>
-{% if goal_percentage >= 100 %}
+{% if goal_percentage >= 100.00 %}
     <div class="bg-success text-center text-light savings-goal" style="font-size: 1rem;">
         {% include "savings/savings_goal_warnings.jinja" %}
         <div class="row m-2">
-            <div class="col">Congratulations on reaching your savings goal of <b>${{savings_goal.amount}}</b>!</div>
+            <div class="col">Congratulations on reaching your savings goal of <b>${{'{:.2f}'.format(savings_goal.amount)}}</b>!</div>
         </div>
         <div class="row m-2">
             <div class="col">
@@ -30,23 +30,23 @@
 <div class="card-body savings-goal">
     {% include "savings/savings_goal_warnings.jinja" %}
     <div class="mb-3">
-        <h5 class="text-center text-success mb-3">You saved: <b>${{total}}</b></h5>
+        <h5 class="text-center text-success mb-3">You saved: <b>${{'{:.2f}'.format(total)}}</b></h5>
         <div class="progress my-2" style="height: 25px; font-size: 1rem;">
-            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{goal_percentage}}" aria-valuemin="0" aria-valuemax="{{savings_goal.amount}}" style="width: {{goal_percentage}}%">{{goal_percentage}}%</div>
+            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{goal_percentage}}" aria-valuemin="0" aria-valuemax="{{savings_goal.amount}}" style="width: {{goal_percentage}}%">{{'{:.2f}'.format(goal_percentage)}}%</div>
         </div>
         <div class="row justify-content-between">
             <div class="col-2">
-                <b class="text-success">$0</b>
+                <b class="text-success">$0.00</b>
             </div>
             <div class="col-2 text-right">
-                <b class="text-success">${{savings_goal.amount}}</b>
+                <b class="text-success">${{'{:.2f}'.format(savings_goal.amount)}}</b>
             </div>
         </div>
     </div>
     <div class="mb-2">
         <h5 class="text-center text-info mb-3">Day <b>{{days_elapsed}}</b> of <b>{{total_goal_days}}</b></h5>
         <div class="progress my-2" style="height: 25px; font-size: 1rem;">
-            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{days_elapsed_percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{days_elapsed_percentage}}%">{{days_elapsed_percentage}}%</div>
+            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{days_elapsed_percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{days_elapsed_percentage}}%">{{'{:.2f}'.format(days_elapsed_percentage)}}%</div>
         </div>
         <div class="row justify-content-between">
             <div class="col-2">

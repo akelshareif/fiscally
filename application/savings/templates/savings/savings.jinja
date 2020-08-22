@@ -8,6 +8,7 @@
     {% for cat, msg in get_flashed_messages(with_categories=True) %}
         <div class="alert alert-{{cat}} text-center" style="font-size: 1rem;">{{msg}}</div>
     {% endfor %}
+    <div class="alert alert-danger text-center alert-div d-none" style="font-size: 1rem;"></div>
     <div class="row">
         <div class="col-md-4 mb-2">
             <h3 class="text-center text-primary">Savings Options</h3>

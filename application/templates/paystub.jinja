@@ -39,7 +39,7 @@
                     <b>Pre-Tax Deductions:</b>
                 </div>
                 <div class="col text-right">
-                    {{paycheck.pre_tax_deductions}}
+                    {{'{:.2f}'.format(paycheck.pre_tax_deductions)}}
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                     <b>Taxable Income:</b>
                 </div>
                 <div class="col text-right">
-                    {{paycheck.gross_pay-paycheck.pre_tax_deductions}}
+                    {{'{:.2f}'.format(paycheck.gross_pay-paycheck.pre_tax_deductions)}}
                 </div>
             </div>
             <div class="row mb-2">
@@ -57,7 +57,7 @@
                     <b>Federal Taxes:</b>
                 </div>
                 <div class="col text-right">
-                    {{paycheck.federal_taxes}}
+                    {{'{:.2f}'.format(paycheck.federal_taxes)}}
                 </div>
             </div>
             <div class="row mb-2">
@@ -65,7 +65,7 @@
                     <b>{{paycheck.state}} Taxes:</b>
                 </div>
                 <div class="col text-right">
-                    {{paycheck.state_taxes}}
+                    {{'{:.2f}'.format(paycheck.state_taxes)}}
                 </div>
             </div>
             <div class="row mb-2">
@@ -73,7 +73,7 @@
                     <b>FICA Taxes:</b>
                 </div>
                 <div class="col text-right">
-                    {{paycheck.fica_taxes}}
+                    {{'{:.2f}'.format(paycheck.fica_taxes)}}
                 </div>
             </div>
             <div class="row mb-2">
@@ -81,7 +81,7 @@
                     <b>Total Taxes:</b>
                 </div>
                 <div class="col text-right">
-                    ${{paycheck.total_deductions}}
+                    ${{'{:.2f}'.format(paycheck.total_deductions)}}
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
                     <b>Gross Pay:</b> 
                 </div>
                 <div class="col text-right">
-                    ${{paycheck.gross_pay}}
+                    ${{'{:.2f}'.format(paycheck.gross_pay)}}
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
                     <b>Net Pay:</b> 
                 </div>
                 <div class="col text-right">
-                    ${{paycheck.net}}
+                    ${{'{:.2f}'.format(paycheck.net)}}
                 </div>
             </div>
         </div>

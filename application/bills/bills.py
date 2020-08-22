@@ -1,6 +1,6 @@
 """ Bills routes """
 
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, url_for, flash
 from flask_login import login_required, current_user
 from application import db
 from .bill_forms import BillForm
@@ -88,4 +88,5 @@ def delete_bills():
         db.session.delete(bill)
         db.session.commit()
 
+    flash('Bill successfully deleted', 'warning')
     return {"msg": "success"}

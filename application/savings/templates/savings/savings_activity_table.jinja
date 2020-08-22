@@ -44,11 +44,11 @@
                         </th>
                         <td>{{savings_entry.savings_date.strftime('%m/%d/%Y')}}</td>
                         {% if savings_entry.transaction_type == '-' %}
-                            <td class="text-danger">- ${{savings_entry.amount}}</td>
+                            <td class="text-danger">- ${{'{:.2f}'.format(savings_entry.amount)}}</td>
                         {% else %}
-                            <td class="text-success">+ ${{savings_entry.amount}}</td>
+                            <td class="text-success">+ ${{'{:.2f}'.format(savings_entry.amount)}}</td>
                         {% endif %}
-                        <td>${{total_entry.total}}</td>
+                        <td>${{'{:.2f}'.format(total_entry.total)}}</td>
                     </tr>
                 {% endfor %}
             </tbody>

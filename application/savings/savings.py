@@ -27,7 +27,7 @@ def savings_display():
     # Handle savings_form submission
     if savings_form.validate_on_submit():
         new_entry = SavingsEntry(savings_date=savings_form.savings_date.data,
-                                 transaction_type=savings_form.transaction_type.data, amount=savings_form.amount.data, user_id=str(current_user.id))
+                                 transaction_type=savings_form.transaction_type.data, amount='{:.2f}'.format(savings_form.amount.data), user_id=str(current_user.id))
 
         db.session.add(new_entry)
         db.session.commit()
@@ -101,6 +101,7 @@ def delete_savings_entries():
     # Recalculate all savings_totals after savings_entry deletion and update db
     recalculate_totals(current_user)
 
+    flash('Savings entry successfully deleted', 'warning')
     return {"msg": "success"}
 
 

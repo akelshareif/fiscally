@@ -18,8 +18,9 @@ def user_profile():
 
     # Get total amount bills due
     user_bills = Bill.query.filter_by(user_id=str(current_user.id)).all()
-    total_amount_due = round(
-        sum([bill.bill_amount for bill in user_bills if bill.is_paid == 'Not Paid']), 2)
+
+    total_amount_due = sum(
+        [bill.bill_amount for bill in user_bills if bill.is_paid == 'Not Paid'])
 
     # Get total savings amount
     total_savings = savings_helper.get_calculated_total(current_user)

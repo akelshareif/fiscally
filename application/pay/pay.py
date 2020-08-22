@@ -65,4 +65,5 @@ def delete_paycheck():
     db.session.delete(paycheck)
     db.session.commit()
 
+    flash('Paycheck was successfully deleted', 'warning')
     return {"msg": "success"}

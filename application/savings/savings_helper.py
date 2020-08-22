@@ -50,7 +50,7 @@ def get_calculated_total(curr_user):
     calculated_total = sum([savings.amount if savings.transaction_type ==
                             '+' else -savings.amount for savings in fresh_savings_entries])
 
-    return calculated_total
+    return round(calculated_total, 2)
 
 
 def savings_goal_time_percentage(savings_goal):
