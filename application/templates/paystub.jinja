@@ -1,0 +1,112 @@
+<div class="card-body">
+    {# pay settings/taxes #}
+    <div class="row border-bottom">
+        <div class="col-md-6">
+            <div class="row mb-2">
+                <div class="col">
+                    <b>Pay Frequency:</b>
+                </div>
+                <div class="col text-right">
+                    {{pay_frequency_dict[paycheck.pay_frequency]}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <b>State:</b>
+                </div>
+                <div class="col text-right">
+                    {{paycheck.state}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <b>Filing Status:</b> 
+                </div>
+                <div class="col text-right">
+                    {{paycheck.filing_status.capitalize()}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <b>Exemptions:</b>
+                </div>
+                <div class="col text-right">
+                    {{paycheck.exemptions}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <b>Pre-Tax Deductions:</b>
+                </div>
+                <div class="col text-right">
+                    {{paycheck.pre_tax_deductions}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row mb-2">
+                <div class="col">
+                    <b>Taxable Income:</b>
+                </div>
+                <div class="col text-right">
+                    {{paycheck.gross_pay-paycheck.pre_tax_deductions}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <b>Federal Taxes:</b>
+                </div>
+                <div class="col text-right">
+                    {{paycheck.federal_taxes}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <b>{{paycheck.state}} Taxes:</b>
+                </div>
+                <div class="col text-right">
+                    {{paycheck.state_taxes}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <b>FICA Taxes:</b>
+                </div>
+                <div class="col text-right">
+                    {{paycheck.fica_taxes}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <b>Total Taxes:</b>
+                </div>
+                <div class="col text-right">
+                    ${{paycheck.total_deductions}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {# gross pay/net pay #}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row mt-2">
+                <div class="col">
+                    <b>Gross Pay:</b> 
+                </div>
+                <div class="col text-right">
+                    ${{paycheck.gross_pay}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row mt-2">
+                <div class="col">
+                    <b>Net Pay:</b> 
+                </div>
+                <div class="col text-right">
+                    ${{paycheck.net}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

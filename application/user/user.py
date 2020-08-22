@@ -26,10 +26,13 @@ def user_profile():
 
     # Get last paycheck
     last_added_paycheck = Paycheck.query.filter_by(user_id=str(
-        current_user.id)).order_by(Paycheck.created).all()
+        current_user.id)).order_by(desc(Paycheck.created)).first()
 
-    print(total_amount_due)
-    print(total_savings)
-    print(last_added_paycheck[0].created)
+    pay_frequency_dict = {
+        "52": "Weekly",
+        "26": "Bi-Weekly",
+        "24": "Semi-Monthly",
+        "12": "Monthly"
+    }
 
-    return render_template('user/profile.jinja')
+    return render_template('user/profile.jinja', amount_due=total_amount_due, savings=total_savings, paycheck=last_added_paycheck, pay_frequency_dict=pay_frequency_dict, user=current_user)

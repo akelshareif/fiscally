@@ -6,45 +6,109 @@
 
 {% block content %}
     
-    <div style="height: 75vh; padding-top: 10%;">
-        <h1 class="text-center text-secondary">Hello Jack</h1>
-        <div class="row">
-            <div class="col">
-                <hr />
+    {% if paycheck or amount_due or savings %}
+        <div>
+            <h1 class="text-center text-secondary">Hello {{user.first_name.capitalize()}}</h1>
+            <div class="row mt-3">
+                <div class="col">
+                    <hr />
+                </div>
+                <div class="lead text-secondary">
+                    Here's Your Fiscally Summary
+                </div>
+                <div class="col">
+                    <hr />
+                </div>
+            </div> 
+            <div class="row justify-content-center" style="margin: 3rem 0">
+                <div class="col-3 border-bottom text-right">
+                    <h4><b>Total Savings: </b></h4>
+                </div>
+                <div class="col-3 border-bottom text-left">
+                    <h4>&nbsp;<b class="text-success">${{savings}}</b></h4>
+                </div>
             </div>
-            <div class="lead text-secondary">
-                Welcome to Fiscally
+            <div class="row justify-content-center" style="margin: 3rem 0">
+                <div class="col-3 border-bottom text-right">
+                    <h4><b>Bills Amount Due: </b></h4>
+                </div>
+                <div class="col-3 border-bottom text-left">
+                    {% if amount_due == 0 %}
+                        <h4>&nbsp;<b class="text-success">${{amount_due}}</b></h4>
+                    {% else %}
+                        <h4>&nbsp;<b class="text-danger">${{amount_due}}</b></h4>
+                    {% endif %}
+                </div>
             </div>
-            <div class="col">
-                <hr />
-            </div>
-        </div> 
-        <div class="row mt-4">
-            <div class="col text-center">
-                <h4>Please choose from the options below or from the above navigation bar</h4>
-            </div>
+            {% if paycheck %}
+                <div class="card">
+                    <h5 class="card-header"><b>Last Pay Date: &nbsp;</b>{{paycheck.pay_date.strftime('%m/%d/%Y')}}</h5>
+                    {% include "paystub.jinja" %}
+                </div>
+            {% endif %}
         </div>
         <div class="row mt-4 justify-content-center text-center">
             <div class="col-md-4 mb-2">
-                <a href="{{url_for('pay.pay_display')}}" class="btn btn-lg btn-info">
+                <a href="{{url_for('pay.pay_display')}}" class="btn btn-lg btn-success">
                     <i class="fas fa-calculator"></i>
-                    &nbsp; Calculate Your Pay
+                    &nbsp; Calculate New Paycheck
                 </a>
             </div>
             <div class="col-md-4 mb-2">
-                <a href="{{url_for('bills.bills_display')}}" class="btn btn-lg btn-info">
+                <a href="{{url_for('bills.bills_display')}}" class="btn btn-lg btn-success" style="width: 260px;">
                     <i class="fas fa-plus"></i>
                     &nbsp; Add A Bill
                 </a>
             </div>
             <div class="col-md-4 mb-2">
-                <a href="{{url_for('savings.savings_display')}}" class="btn btn-lg btn-info">
-                    <i class="fas fa-chart-line"></i>
-                    &nbsp; Track Your Savings
+                <a href="{{url_for('savings.savings_display')}}" class="btn btn-lg btn-success">
+                    <i class="fas fa-plus"></i>
+                    &nbsp; Add Savings Entry
                 </a>
             </div>
         </div>
-    </div>
+    
+    {% else %}
+        <div style="height: 75vh; padding-top: 10%;">
+            <h1 class="text-center text-secondary">Hello Jack</h1>
+            <div class="row">
+                <div class="col">
+                    <hr />
+                </div>
+                <div class="lead text-secondary">
+                    Welcome to Fiscally
+                </div>
+                <div class="col">
+                    <hr />
+                </div>
+            </div> 
+            <div class="row mt-4">
+                <div class="col text-center">
+                    <h4>Please choose from the options below or from the above navigation bar</h4>
+                </div>
+            </div>
+            <div class="row mt-4 justify-content-center text-center">
+                <div class="col-md-4 mb-2">
+                    <a href="{{url_for('pay.pay_display')}}" class="btn btn-lg btn-info">
+                        <i class="fas fa-calculator"></i>
+                        &nbsp; Calculate Your Pay
+                    </a>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <a href="{{url_for('bills.bills_display')}}" class="btn btn-lg btn-info">
+                        <i class="fas fa-plus"></i>
+                        &nbsp; Add A Bill
+                    </a>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <a href="{{url_for('savings.savings_display')}}" class="btn btn-lg btn-info">
+                        <i class="fas fa-chart-line"></i>
+                        &nbsp; Track Your Savings
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
 
 {% endblock content %}

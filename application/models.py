@@ -2,8 +2,9 @@ from application import db
 from flask_login import UserMixin
 from flask_bcrypt import Bcrypt
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.sql import func
 from uuid import uuid4
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 
 
 class User(UserMixin, db.Model):
@@ -16,6 +17,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(20), nullable=False)
     email = db.Column(db.Text, nullable=False)
     password = db.Column(db.Text, nullable=False)
+    created = db.Column(db.TIMESTAMP, default=datetime.now())
     paychecks = db.relationship(
         'Paycheck', backref='user', cascade='all, delete, delete-orphan')
 
@@ -94,7 +96,7 @@ class Bill(db.Model):
     bill_due_date = db.Column(db.Date, default=date.today())
     bill_amount = db.Column(db.Float(precision=2), nullable=False)
     is_paid = db.Column(db.Text, default='Not Paid')
-    created = db.Column(db.DateTime, default=datetime.now())
+    created = db.Column(db.TIMESTAMP, default=datetime.now())
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):
@@ -110,7 +112,7 @@ class SavingsEntry(db.Model):
     savings_date = db.Column(db.Date, default=date.today(), nullable=False)
     transaction_type = db.Column(db.String(10), nullable=False)
     amount = db.Column(db.Float(precision=2))
-    created = db.Column(db.DateTime, default=datetime.now())
+    created = db.Column(db.TIMESTAMP, default=datetime.now())
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
     total_savings = db.relationship(
         'SavingsTotal', backref='savings_entries', cascade='all, delete, delete-orphan')
@@ -126,7 +128,7 @@ class SavingsTotal(db.Model):
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     total = db.Column(db.Float(precision=2), nullable=False)
-    created = db.Column(db.DateTime, default=datetime.now())
+    created = db.Column(db.TIMESTAMP, default=datetime.now())
     savings_id = db.Column(UUID, db.ForeignKey('savings_entries.id'))
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
@@ -143,7 +145,7 @@ class SavingsGoal(db.Model):
     start_date = db.Column(db.Date, default=date.today(), nullable=False)
     end_date = db.Column(db.Date, default=date.today(), nullable=False)
     amount = db.Column(db.Float(precision=2), nullable=False)
-    created = db.Column(db.DateTime, default=datetime.now())
+    created = db.Column(db.TIMESTAMP, default=datetime.now())
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __repr__(self):
