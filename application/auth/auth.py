@@ -86,7 +86,7 @@ def verify_email():
             session.modified = True
 
             send_email(user.email, 'Fiscally: Email Verification Code',
-                       render_template('verify_email.jinja', user=user, code=code))
+                       render_template('auth/verify_email.jinja', user=user, code=code))
 
             flash('Verification code was successfully sent', 'success')
             return redirect(url_for('auth.verify_email_code'))
@@ -148,6 +148,9 @@ def reset_password():
 
                 db.session.commit()
                 login_user(user)
+
+                send_email(user.email, 'Fiscally: Password Successfully Reset',
+                           render_template('auth/success_pw_reset.jinja', user=user))
 
                 flash(
                     'Password was successfully reset and you are now logged in', 'success')
