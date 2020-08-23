@@ -1,0 +1,37 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Email Verification
+{% endblock title %}
+
+
+{% block content %}
+    <div class="row justify-content-center text-center">
+        <div class="col-md-7">
+            {% for cat, msg in get_flashed_messages(with_categories=True) %}
+                <div class="alert alert-{{cat}} text-center">{{msg}}</div>
+            {% endfor %}
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h2>Email Verification</h2>
+                    <p class="lead my-4">
+                        Please submit the email associated with your account to send a verification code to your email.
+                    </p>
+                    <form action="{{url_for('auth.verify_email')}}" method="POST">
+                        {{form.hidden_tag()}}
+                        <div class="form-group">
+                            {{form.email(class_="form-control form-control-lg", placeholder="Enter your account email here")}}
+                            {% for error in form.email.errors %}
+                                <span class="text-danger ml-2">{{error}}</span>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-block btn-info">Send Verification Code</button>
+                    </form>
+                    <div class="mt-2">
+                        <small>If you haven't received an email, please try again and ensure you've entered the correct account email.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %} 

@@ -12,6 +12,7 @@ class Config:
     SECRET_KEY = environ.get('SECRET_KEY')
     GOOGLE_CLIENT_ID = environ.get('CLIENT_ID')
     GOOGLE_CLIENT_SECRET = environ.get('CLIENT_SECRET')
+    SENDGRID_API_KEY = environ.get('SENDGRID_API_KEY')
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
 

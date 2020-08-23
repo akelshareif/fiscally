@@ -21,6 +21,8 @@ Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
 gunicorn==20.0.4
 idna==2.10
+infinity==1.5
+intervals==0.9.0
 ipython-genutils==0.2.0
 isort==4.3.21
 itsdangerous==1.1.0
@@ -45,12 +47,17 @@ pylint-plugin-utils==0.6
 python-dateutil==2.8.1
 python-dotenv==0.14.0
 python-editor==1.0.4
+python-http-client==3.2.7
+quickchart.io==0.1.0
 requests==2.24.0
+sendgrid==6.4.6
 six==1.15.0
 SQLAlchemy==1.3.18
+starkbank-ecdsa==1.0.0
 toml==0.10.1
 traitlets==4.3.3
 urllib3==1.25.10
+validators==0.18.0
 wcwidth==0.2.5
 Werkzeug==1.0.1
 wrapt==1.12.1

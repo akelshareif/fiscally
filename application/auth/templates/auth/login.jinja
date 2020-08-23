@@ -27,8 +27,11 @@
                                 {% endfor %}
                             </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-lg btn-block btn-info mt-4">Submit</button>
+                        <button type="submit" class="btn btn-lg btn-block btn-info mt-4">Sign In</button>
                     </form>
+                    <div class="text-center mt-3">
+                        <a href="{{url_for('auth.verify_email')}}">Forgot Password?</a>
+                    </div>
                     <div class="row my-3">
                         <div class="col"><hr/></div>
                         <div class="col-auto">OR</div>
@@ -36,9 +39,13 @@
                     </div>
                     <div>
                         <a href="{{url_for('auth.google_login')}}" class="btn btn-lg btn-block btn-danger">
-                            <i class="fab fa-google mr-1"></i>
-                            Login With Google
+                            <i class="fab fa-google"></i>
+                            &nbsp; Login With Google
                         </a>
+                    </div>
+                    <div class="text-center mt-3">
+                        Don't have an account? 
+                        <a href="{{url_for('auth.signup_display')}}">&nbsp; Sign Up</a>
                     </div>
                 </div>
             </div>

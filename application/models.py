@@ -18,6 +18,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.Text, nullable=False)
     password = db.Column(db.Text, nullable=False)
     created = db.Column(db.TIMESTAMP, default=datetime.now())
+    reset_token = db.Column(db.Text)
     paychecks = db.relationship(
         'Paycheck', backref='user', cascade='all, delete, delete-orphan')
 
@@ -39,14 +40,23 @@ class User(UserMixin, db.Model):
         return f'{self.first_name} {self.last_name}'
 
     @classmethod
-    def register(cls, first_name, last_name, email, password):
-        """ Returns a User with a hashed password """
+    def hasher(cls, hash_this):
+        """ Hashes password with bcrypt """
+
         bcrypt = Bcrypt()
 
-        hashed = bcrypt.generate_password_hash(password)
+        hashed = bcrypt.generate_password_hash(hash_this)
         hashed_utf8 = hashed.decode('utf8')
 
-        return cls(first_name=first_name, last_name=last_name, email=email, password=hashed_utf8)
+        return hashed_utf8
+
+    @classmethod
+    def register(cls, first_name, last_name, email, password):
+        """ Returns a User with a hashed password """
+
+        hashed_pw = cls.hasher(password)
+
+        return cls(first_name=first_name, last_name=last_name, email=email, password=hashed_pw)
 
     @classmethod
     def authenticate(cls, email, password):

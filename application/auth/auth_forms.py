@@ -22,6 +22,30 @@ class LoginForm(FlaskForm):
     """ Login form for returning user """
 
     email = StringField('Email', validators=[
-                        InputRequired(message='Enter a valid email.')])
+                        InputRequired(message='You must enter an Email Address.'), Email(message='Enter a valid email.')])
     password = PasswordField('Password', validators=[
                              InputRequired(message='Password is required.')])
+
+
+class EmailVerificationForm(FlaskForm):
+    """ Form to verify email and send verification code """
+
+    email = StringField('Email', validators=[InputRequired(
+        message='You must enter an Email Address.'), Email(message='Enter a valid email.')])
+
+
+class VerifyCodeForm(FlaskForm):
+    """ Form to enter the verification code """
+
+    verification_code = StringField('Verification Code', validators=[InputRequired(
+        message="You must enter the verification code sent to your email.")])
+
+
+class ResetPasswordForm(FlaskForm):
+    """ Form to reset password """
+
+    new_password = PasswordField('New Password', validators=[
+        InputRequired(message="You must enter a new password")])
+
+    verify_password = PasswordField('Confirm New Password', validators=[
+        InputRequired(message="You must verify your password")])

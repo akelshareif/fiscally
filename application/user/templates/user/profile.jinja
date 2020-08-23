@@ -7,6 +7,9 @@
 {% block content %}
     
     {% if paycheck or amount_due or savings %}
+        {% for cat, msg in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{cat}} text-center">{{msg}}</div>
+        {% endfor %}
         <div>
             <h1 class="text-center text-secondary">Hello {{user.first_name.capitalize()}}</h1>
             <div class="row mt-3">
@@ -69,8 +72,11 @@
         </div>
     
     {% else %}
+        {% for cat, msg in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{cat}} text-center">{{msg}}</div>
+        {% endfor %}
         <div style="height: 75vh; padding-top: 10%;">
-            <h1 class="text-center text-secondary">Hello Jack</h1>
+            <h1 class="text-center text-secondary">Hello {{user.first_name.capitalize()}}</h1>
             <div class="row">
                 <div class="col">
                     <hr />
