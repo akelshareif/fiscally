@@ -208,7 +208,7 @@ def logout():
 
     logout_user()
     flash('You have successfully logged out', 'success')
-    return redirect(url_for('auth.login_display'))
+    return redirect(url_for('home.home_page'))
 
 
 # Flask-login authorization handlers

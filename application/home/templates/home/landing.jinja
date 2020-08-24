@@ -1,11 +1,84 @@
-{% extends "base.jinja" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/flatly/bootstrap.min.css" />
+    <script src="https://kit.fontawesome.com/b6cd0ec0a6.js" crossorigin="anonymous"></script>
+    <title>Fiscally</title>
+</head>
+<body class="bg-light">
+    <div class="container">
+        {% for cat, msg in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{cat}} text-center">{{msg}}</div>
+        {% endfor %}
+        <h1 class="text-center mt-2">
+            <i class="fas fa-money-bill-wave text-primary">&nbsp;Fiscally</i>
+        </h1>
+        <hr />
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h3>Fiscal Responsibility, Hassel-Free.</h3>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-md-4 mb-3">
+                        <a href="{{url_for('auth.signup_display')}}" class="btn btn-lg btn-block btn-success">
+                            <i class="fas fa-user-plus">&nbsp;</i>
+                            Sign Up
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <a href="{{url_for('auth.login_display')}}" class="btn btn-lg btn-block btn-primary">
+                            <i class="fas fa-sign-in-alt">&nbsp;</i>
+                            Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row mt-4">
+            <div class="col-md-4 text-center mb-3">
+                <img src="../static/images/calculate.png" alt="calculate pay" class="w-100">
+                <h3 class="text-primary">Calculate Your Pay</h3>
+            </div>
+            <div class="col-md-4 text-center mb-3">
+                <img src="../static/images/savings.png" alt="track savings" class="w-100"/>
+                <h3 class="text-primary">Track Your Savings</h3>
+            </div>
+            <div class="col-md-4 text-center mb-3">
+                <img src="../static/images/bills.png" alt="monitor bills" class="w-100">
+                <h3 class="text-primary">Track Your Bills</h3>
+            </div>
+        </div>
+        {# <div class="row">
+            <div class="col align-self-center text-right">
+                <h2 class="text-primary">Track Your Savings</h2>
+            </div>
+            <div class="col">
+                <img src="../static/images/savings.jpg" alt="track savings" class="w-100"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="../static/images/calculate.jpg" alt="calculate pay" class="w-100">
+            </div>
+            <div class="col align-self-center text-left">
+                <h2 class="text-primary">Calculate Your Pay</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-center text-right">
+                <h2 class="text-primary">Track Your Bills</h2>
+            </div>
+            <div class="col">
+                <img src="../static/images/bills.jpg" alt="track bills" class="w-100">
+            </div>
+        </div> #}
+    </div>
 
-{% block title %}
-    Fiscally
-{% endblock title %}
 
-{% block content %}
-    {% for cat, msg in get_flashed_messages(with_categories=True) %}
-        <div class="alert alert-{{cat}} text-center">{{msg}}</div>
-    {% endfor %}
-{% endblock content %}
+</body>
+</html>
+
+{# <a href='https://www.freepik.com/vectors/science'>Science vector created by stories - www.freepik.com</a> #}

@@ -4,7 +4,8 @@ from flask import Blueprint, render_template, redirect, url_for
 from flask_login import current_user
 
 # Initialize blueprint
-home_bp = Blueprint('home', __name__, template_folder='templates')
+home_bp = Blueprint(
+    'home', __name__, template_folder='templates')
 
 
 # Home page endpoints
