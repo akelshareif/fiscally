@@ -20,28 +20,28 @@
                         {{form.hidden_tag()}}
                         <div class="form-group">
                             {{form.first_name.label}}
-                            {{form.first_name(class_="form-control form-control-lg", placeholder="Enter First Name Here")}}
+                            {{form.first_name(class_="form-control form-control-lg")}}
                             {% for error in form.first_name.errors %}
                                 <span class="text-danger ml-2">{{error}}</span>
                             {% endfor %}
                         </div>
                         <div class="form-group">
                             {{form.last_name.label}}
-                            {{form.last_name(class_="form-control form-control-lg", placeholder="Enter Last Name Here")}}
+                            {{form.last_name(class_="form-control form-control-lg")}}
                             {% for error in form.last_name.errors %}
                                 <span class="text-danger ml-2">{{error}}</span>
                             {% endfor %}
                         </div>
                         <div class="form-group">
                             {{form.email.label}}
-                            {{form.email(class_="form-control form-control-lg", placeholder="Enter Email Here")}}
+                            {{form.email(class_="form-control form-control-lg")}}
                             {% for error in form.email.errors %}
                                 <span class="text-danger ml-2">{{error}}</span>
                             {% endfor %}
                         </div>
                         <div class="form-group">
                             {{form.password.label}}
-                            {{form.password(class_="form-control form-control-lg", placeholder="Enter Password Here")}}
+                            {{form.password(class_="form-control form-control-lg")}}
                             {% for error in form.password.errors %}
                                 <p class="text-danger text-center ml-2"><small>{{error}}</small></p>
                             {% endfor %}

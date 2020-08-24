@@ -1,20 +1,20 @@
 {% extends "base.jinja" %}
 
 {% block title %}
-    Paychecks
+    Calculators
 {% endblock title %}
 
 {% block content %}
     {% for cat, msg in get_flashed_messages(with_categories=True) %}
         <div class="alert alert-{{cat}} text-center" style="font-size: 1rem;">{{msg}}</div>
     {% endfor %}
-    <h3 class="text-primary ml-2">Options</h3>
+    <h3 class="text-primary ml-2">Calculators</h3>
     <div class="accordion mb-3" id="pay-views">
         <div class="card">
             <div class="card-header" id="add-paycheck">
                 <h2 class="mb-0">
                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#addform" aria-expanded="true" aria-controls="addform">
-                        Add A Paycheck
+                        Calculate Per-Pay-Period: Net Pay
                     </button>
                 </h2>
             </div>
@@ -45,7 +45,7 @@
 
     {% if paychecks %}
         <div class="card mb-4">
-            <h4 class="card-header">Paychecks</h4>
+            <h4 class="card-header">Paystubs</h4>
             <div class="card-body paystubs">
 
                 {% for paycheck in paychecks %}
