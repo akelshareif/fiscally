@@ -13,8 +13,8 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    first_name = db.Column(db.String(20), nullable=False)
-    last_name = db.Column(db.String(20), nullable=False)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
     created = db.Column(db.TIMESTAMP, default=datetime.now())
@@ -102,7 +102,7 @@ class Bill(db.Model):
     __tablename__ = 'bills'
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    bill_name = db.Column(db.String(20), nullable=False)
+    bill_name = db.Column(db.String, nullable=False)
     bill_due_date = db.Column(db.Date, default=date.today())
     bill_amount = db.Column(db.Float(precision=2), nullable=False)
     is_paid = db.Column(db.Text, default='Not Paid')
@@ -120,7 +120,7 @@ class SavingsEntry(db.Model):
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     savings_date = db.Column(db.Date, default=date.today(), nullable=False)
-    transaction_type = db.Column(db.String(10), nullable=False)
+    transaction_type = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float(precision=2))
     created = db.Column(db.TIMESTAMP, default=datetime.now())
     user_id = db.Column(UUID, db.ForeignKey('users.id'))
