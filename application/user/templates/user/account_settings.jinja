@@ -1,0 +1,85 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Account Settings
+{% endblock title %}
+
+{% block content %}
+    <div class="row justify-content-center" style="font-size: 1.2rem;">
+        <div class="col-md-6">
+        {% for cat, msg in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{cat}} text-center">{{msg}}</div>
+        {% endfor %}
+        <h2 class="text-center">Account Settings</h2>
+            <div class="alert alert-warning text-center d-none delete-account">
+                Are you sure you want to delete your account?
+                <div class="row justify-content-center mt-2">
+                    <div class="col-3">
+                        <form action="{{url_for('user.delete_account')}}" method="POST">
+                            <button type="submit" class="btn btn-danger">Yes</button>
+                        </form>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-info cancel-btn">No</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <b>Name:</b>
+                        </div>
+                        <div class="col-6 text-right">
+                            {{current_user.full_name}}
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-6">
+                            <b>Email:</b>
+                        </div>
+                        <div class="col-6 text-right">
+                            {{current_user.email}}
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-6 align-self-center">
+                            <b>Password:</b>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="{{url_for('auth.verify_email')}}" class="text-success">Reset Password</a>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <a href="{{url_for('user.edit_account')}}" class="btn btn-block btn-lg btn-info">
+                        <i class="far fa-edit"></i>
+                        &nbsp; Edit Account
+                    </a>
+                    <div class="row my-2">
+                        <div class="col">
+                            <hr />
+                        </div>
+                        OR
+                        <div class="col">
+                            <hr />
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-block btn-lg btn-danger delete-btn">
+                        <i class="far fa-trash-alt"></i>
+                        &nbsp; Delete Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script_tag %}
+    <script src="{{url_for('static', filename='user.js')}}"></script>
+{% endblock script_tag %}

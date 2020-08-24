@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
-    email = db.Column(db.Text, nullable=False)
+    email = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
     created = db.Column(db.TIMESTAMP, default=datetime.now())
     reset_token = db.Column(db.Text)
@@ -37,7 +37,7 @@ class User(UserMixin, db.Model):
     @property
     def full_name(self):
         """ Returns a user's full name """
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.first_name.capitalize()} {self.last_name.capitalize()}'
 
     @classmethod
     def hasher(cls, hash_this):

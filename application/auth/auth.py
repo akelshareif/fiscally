@@ -52,7 +52,7 @@ def signup_display():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = User.register(form.first_name.data, form.last_name.data,
+            user = User.register(form.first_name.data.capitalize(), form.last_name.data.capitalize(),
                                  form.email.data, form.password.data)
             db.session.add(user)
             db.session.commit()
@@ -192,7 +192,7 @@ def google_authorize():
         login_user(user)
 
         send_email(user.email, 'Welcome to Fiscally!',
-                   render_template('welcome_email.jinja'))
+                   render_template('welcome_email.jinja', user=user))
 
         return redirect(url_for('user.user_profile'))
 

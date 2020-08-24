@@ -15,4 +15,3 @@ def send_email(recipient_email, email_subject, content):
 
     sg = SendGridAPIClient(environ.get('SENDGRID_API_KEY'))
     response = sg.send(message)
-    print(response.status_code)

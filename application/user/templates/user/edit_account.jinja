@@ -1,0 +1,48 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Edit Account Settings
+{% endblock title %}
+
+{% block content %}
+    <div class="row justify-content-center" style="font-size: 1.1rem;">
+        <div class="col-md-6">
+            {% for cat, msg in get_flashed_messages(with_categories=True) %}
+                <div class="alert alert-{{cat}} text-center">{{msg}}</div>
+            {% endfor %}
+            <h2 class="text-center">Edit Account Settings</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{url_for('user.edit_account')}}" method="POST">
+                        {{form.hidden_tag()}}
+                        <div class="form-group">
+                            {{form.first_name.label}}
+                            {{form.first_name(class_="form-control form-control-lg")}}
+                            {% for error in form.first_name.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{form.last_name.label}}
+                            {{form.last_name(class_="form-control form-control-lg")}}
+                            {% for error in form.last_name.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{form.email.label}}
+                            {{form.email(class_="form-control form-control-lg")}}
+                            {% for error in form.email.errors %}
+                                <div class="text-danger ml-1">{{error}}</div>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-block btn-lg btn-info">
+                            <i class="fas fa-user"></i>
+                            &nbsp; Update Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

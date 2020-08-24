@@ -1,0 +1,11 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+    Fiscally
+{% endblock title %}
+
+{% block content %}
+    {% for cat, msg in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{cat}} text-center">{{msg}}</div>
+    {% endfor %}
+{% endblock content %}

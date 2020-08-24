@@ -16,6 +16,9 @@
                             <div class="form-group">
                                 {{field.label}}
                                 {{field(class_="form-control")}}
+                                {% for error in field.errors %}
+                                    <div class="text-danger ml-1">{{error}}</div>
+                                {% endfor %}
                             </div>
                         {% endfor %}
                         <button type="submit" class="btn btn-block btn-info">

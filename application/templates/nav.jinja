@@ -1,4 +1,4 @@
-{% if session['_user_id'] %}
+{% if current_user.is_authenticated %}
     {% include "logged_in_nav.jinja" %}
 {% else %}
     {% include "anon_nav.jinja" %}

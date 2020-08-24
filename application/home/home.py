@@ -12,6 +12,6 @@ home_bp = Blueprint('home', __name__, template_folder='templates')
 def home_page():
     """ Main root route of application """
     if current_user.is_anonymous:
-        return render_template('home/home.jinja')
+        return render_template('home/landing.jinja')
     else:
         return redirect(url_for('user.user_profile'))
