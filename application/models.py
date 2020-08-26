@@ -81,7 +81,7 @@ class Paycheck(db.Model):
     pay_frequency = db.Column(db.Text, nullable=False)
     filing_status = db.Column(db.Text, nullable=False)
     state = db.Column(db.Text, nullable=False)
-    exemptions = db.Column(db.Integer, nullable=False)
+    exemptions = db.Column(db.Integer, default=1)
     gross_pay = db.Column(db.Float(precision=2), nullable=False)
     pre_tax_deductions = db.Column(db.Float(precision=2), default=0.00)
     federal_taxes = db.Column(db.Float(precision=2), nullable=False)

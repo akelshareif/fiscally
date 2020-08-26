@@ -46,28 +46,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    yesBtn.addEventListener('click', () => {
-        savingsGoalForm.submit();
-    });
+    if (yesBtn) {
+        yesBtn.addEventListener('click', () => {
+            savingsGoalForm.submit();
+        });
+    }
 
-    noBtn.addEventListener('click', () => {
-        savingsGoalUpdateAlert.classList.add('d-none');
-    });
+    if (noBtn) {
+        noBtn.addEventListener('click', () => {
+            savingsGoalUpdateAlert.classList.add('d-none');
+        });
+    }
 
-    endSavingsGoalForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    if (endSavingsGoalForm) {
+        endSavingsGoalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        // upon submit, if goal is present, show warning
-        if (document.querySelector('.savings-goal')) {
-            endGoalWarningAlert.classList.remove('d-none');
-        }
-    });
+            // upon submit, if goal is present, show warning
+            if (document.querySelector('.savings-goal')) {
+                endGoalWarningAlert.classList.remove('d-none');
+            }
+        });
+    }
 
-    endGoalBtn.addEventListener('click', () => {
-        endSavingsGoalForm.submit();
-    });
+    if (endGoalBtn) {
+        endGoalBtn.addEventListener('click', () => {
+            endSavingsGoalForm.submit();
+        });
+    }
 
-    cancelEndGoalBtn.addEventListener('click', () => {
-        endGoalWarningAlert.classList.add('d-none');
-    });
+    if (cancelEndGoalBtn) {
+        cancelEndGoalBtn.addEventListener('click', () => {
+            endGoalWarningAlert.classList.add('d-none');
+        });
+    }
 });
