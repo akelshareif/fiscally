@@ -1,15 +1,15 @@
+import {
+    toggleDeleteBtnShow,
+    handleEdit,
+    handleDelete,
+} from './editDeleteHandler.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const billsTable = document.querySelector('table');
     const editDeleteDiv = document.querySelector('.edit-delete-div');
     const deleteBtn = document.querySelector('.delete-btn');
     const errorsDiv = document.querySelector('.errors');
     const editBtn = document.querySelector('.edit-btn');
-
-    import {
-        toggleDeleteBtnShow,
-        handleEdit,
-        handleDelete,
-    } from './editDeleteHandler.js';
 
     // Show/hide delete btn and row highlight upon checkbox click
     toggleDeleteBtnShow(billsTable, editDeleteDiv);
